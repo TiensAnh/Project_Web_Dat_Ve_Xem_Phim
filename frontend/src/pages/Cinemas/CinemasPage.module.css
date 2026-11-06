@@ -1,0 +1,481 @@
+.cinemas-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.main-container {
+    flex: 1;
+    width: 100%;
+    padding-top: 60px; /* Bù trừ khoảng cách fixed của Header */
+}
+
+/* Phần Tìm rạp chiếu */
+.cinemas-search-section {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 36px 0 60px;
+}
+
+/* Thu gọn chiều ngang container cho cân đối với bố cục 1 cột */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4%;
+}
+
+.title-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563EB;
+    margin-bottom: 24px;
+}
+
+.title-center h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+}
+
+/* Khung card trắng chứa toàn bộ controls & danh sách rạp */
+.search-card-box {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    padding-bottom: 16px;
+}
+
+/* Hàng Vị trí */
+.local {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid #f3f4f6;
+    gap: 16px;
+}
+
+.left h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.choose-city {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 38px;
+    box-sizing: border-box;
+    padding: 0 16px;
+    border: 1.5px solid #2563EB;
+    color: #2563EB;
+    background-color: #ffffff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.choose-city:hover {
+    background-color: rgba(37, 99, 235, 0.05);
+}
+
+.choose-city span {
+    font-weight: 600;
+}
+
+.choose-city i {
+    font-size: 14px;
+}
+
+.near {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 38px;
+    box-sizing: border-box;
+    padding: 0 16px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.near:hover {
+    border-color: #9ca3af;
+    background-color: #f9fafb;
+}
+
+.near i {
+    font-size: 14px;
+}
+
+/* Dải thương hiệu brand */
+.brand-list-wrap {
+    width: 100%;
+    padding: 8px 12px 12px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+/* Thanh tìm kiếm */
+.search-bar-wrap {
+    padding: 16px 20px 12px;
+}
+
+.search-input-box {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    color: #9ca3af;
+    font-size: 15px;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    height: 42px;
+    padding: 0 38px 0 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1f2937;
+    background-color: #f9fafb;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: #2563EB;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.clear-btn {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clear-btn:hover {
+    color: #4b5563;
+}
+
+/* Vùng danh sách cụm rạp: hiển thị tự nhiên, không cuộn nội bộ khi chưa bấm Xem thêm */
+.cinemas-content {
+    height: auto;
+    overflow-y: visible;
+    padding: 12px 18px 8px;
+}
+
+/* Khi bấm Xem thêm: Kích hoạt cuộn nội bộ, giữ nguyên chiều cao thực tế và padding đồng nhất */
+.cinemas-content.scroll-enabled {
+    overflow-y: auto;
+    padding: 12px 18px 8px;
+}
+
+/* Tùy chỉnh thanh cuộn tinh tế mỏng 5px */
+.cinemas-content.scroll-enabled::-webkit-scrollbar {
+    width: 5px;
+}
+
+.cinemas-content.scroll-enabled::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.cinemas-content.scroll-enabled::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.cinemas-content.scroll-enabled::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Danh sách rạp dạng hàng dọc (1 cột duy nhất) */
+.cinemas-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cinema-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.cinema-card:hover {
+    border-color: #93c5fd;
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.08);
+    transform: translateY(-1px);
+}
+
+.cinema-card:hover .cinema-name {
+    color: #2563EB;
+}
+
+.cinema-logo-wrap {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.cinema-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cinema-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cinema-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 2px 0;
+    line-height: 1.35;
+}
+
+.cinema-address {
+    font-size: 12.5px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.35;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.cinema-address i {
+    margin-top: 2px;
+    font-size: 11px;
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+/* Mũi tên sát mép phải thẻ rạp */
+.cinema-arrow {
+    color: #9ca3af;
+    font-size: 13px;
+    margin-left: auto;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.cinema-card:hover .cinema-arrow {
+    color: #2563EB;
+    transform: translateX(3px);
+}
+
+/* Trạng thái rỗng */
+.empty-cinemas {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 16px;
+    color: #9ca3af;
+    text-align: center;
+}
+
+.empty-cinemas i {
+    font-size: 36px;
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+.empty-cinemas p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Thẻ div bọc nút Xem thêm: Giữ kích thước 1 thẻ rạp nhưng KHÔNG có viền và nền trong suốt */
+.load-more-card {
+    width: 100%;
+    min-height: 66px; /* Bằng đúng chiều cao của thẻ .cinema-card */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 6px 0;
+}
+
+/* Nút Xem thêm bo tròn dạng viên thuốc (pill) và ôm sát vào chữ */
+.load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 18px; /* Ôm sát chữ */
+    border: 1.5px solid #2563EB;
+    border-radius: 9999px; /* Bo tròn hoàn toàn */
+    background-color: #ffffff;
+    color: #2563EB;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08);
+}
+
+.load-more-btn:hover {
+    background-color: #2563EB;
+    color: #ffffff;
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.25);
+    transform: translateY(-1px);
+}
+
+.load-more-btn i {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.load-more-btn:hover i {
+    transform: translateY(2px);
+}
+
+/* Khối Phim sắp chiếu với ảnh nền rạp chiếu phim */
+.upcoming-showcase {
+    width: 100%;
+    position: relative;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.75) 0%,
+        rgba(0, 0, 0, 0.35) 20%,
+        rgba(0, 0, 0, 0.25) 50%,
+        rgba(15, 23, 42, 0.7) 80%,
+        #0f172a 100%
+    ), url('../../assets/images/cinema-hall-upcoming.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 40px 0 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cinemas-search-section {
+        padding: 24px 0 40px;
+    }
+
+    .title-center h1 {
+        font-size: 20px;
+    }
+
+    .local {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+    }
+
+    .choose-city,
+    .near {
+        height: 34px;
+        padding: 0 12px;
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .search-bar-wrap {
+        padding: 12px 14px 6px;
+    }
+
+    .cinemas-content {
+        height: auto;
+        padding: 10px 14px 8px;
+    }
+
+    .cinema-card {
+        padding: 10px 12px;
+        align-items: flex-start;
+    }
+
+    .cinema-logo-wrap {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+    }
+
+    .cinema-name {
+        font-size: 13.5px;
+    }
+
+    .cinema-address {
+        font-size: 12px;
+    }
+
+    .load-more-card {
+        min-height: 60px;
+        padding: 10px 12px;
+    }
+
+    .upcoming-showcase {
+        padding: 24px 0 16px;
+    }
+}

@@ -1,0 +1,13 @@
+.showtimes-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    color: #1e293b;
+}
+
+.main-container {
+    flex: 1;
+    /* Bù trừ chiều cao 60px của fixed Header để nội dung không bị che */
+    padding-top: 60px;
+}

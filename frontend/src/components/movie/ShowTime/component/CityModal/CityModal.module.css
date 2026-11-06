@@ -1,0 +1,336 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-dialog {
+    background-color: #ffffff;
+    width: 740px;
+    max-width: calc(100vw - 32px);
+    height: 560px;
+    max-height: 85vh;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Header */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    gap: 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 230px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 34px 8px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: #1e293b;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    color: #94a3b8;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 19px;
+    color: #64748b;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.close-btn:hover {
+    color: #0f172a;
+    background-color: #f1f5f9;
+}
+
+/* Body */
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px 20px;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 4px;
+}
+
+.cities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 16px;
+    align-content: start;
+}
+
+.city-item {
+    background: transparent;
+    border: 1.5px solid transparent;
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 14.5px;
+    color: #334155;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+}
+
+.city-item:hover {
+    color: #2563EB;
+    background-color: #eff6ff;
+}
+
+.city-item.active {
+    border-color: #2563EB;
+    color: #2563EB;
+    font-weight: 600;
+    background-color: #eff6ff;
+}
+
+.empty-result {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 16px;
+    color: #94a3b8;
+    font-size: 14.5px;
+}
+
+/* Footer */
+.modal-footer {
+    padding: 12px 24px 20px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #f8fafc;
+}
+
+.btn-close-action {
+    background-color: #2563EB;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 28px;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-close-action:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-close-action:active {
+    transform: scale(0.98);
+}
+
+/* ===================================================
+   DARK THEME (MOVIE DETAIL PAGE)
+   =================================================== */
+.modal-dialog.dialog-dark {
+    background-color: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.dialog-dark .modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dialog-dark .modal-title {
+    color: #ffffff;
+}
+
+.dialog-dark .search-input {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.dialog-dark .search-input::placeholder {
+    color: #94a3b8;
+}
+
+.dialog-dark .search-input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.dialog-dark .search-icon {
+    color: #94a3b8;
+}
+
+.dialog-dark .close-btn {
+    color: #94a3b8;
+}
+
+.dialog-dark .close-btn:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dialog-dark .modal-body {
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.dialog-dark .modal-body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dialog-dark .city-item {
+    color: #cbd5e1;
+}
+
+.dialog-dark .city-item:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.dialog-dark .city-item.active {
+    border-color: #2563EB;
+    color: #60a5fa;
+    background-color: rgba(37, 99, 235, 0.2);
+    font-weight: 600;
+}
+
+.dialog-dark .empty-result {
+    color: #94a3b8;
+}
+
+.dialog-dark .modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dialog-dark .btn-close-action {
+    background-color: #2563EB;
+    color: #ffffff;
+}
+
+.dialog-dark .btn-close-action:hover {
+    background-color: #1d4ed8;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .modal-dialog {
+        width: 100%;
+        height: min(480px, 85vh);
+    }
+
+    .modal-header {
+        flex-wrap: wrap;
+        padding: 16px 16px 12px;
+    }
+
+    .modal-title {
+        order: 1;
+    }
+
+    .close-btn {
+        order: 2;
+    }
+
+    .search-box {
+        order: 3;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .cities-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px 10px;
+    }
+
+    .modal-body {
+        min-height: 240px;
+        padding: 12px 16px;
+    }
+
+    .modal-footer {
+        padding: 10px 16px 16px;
+    }
+}

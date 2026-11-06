@@ -1,0 +1,198 @@
+.brand-hero {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    background-color: #0f172a;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding: 80px 0 48px;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(15, 23, 42, 0.95) 0%,
+        rgba(15, 23, 42, 0.85) 38%,
+        rgba(15, 23, 42, 0.6) 70%,
+        rgba(15, 23, 42, 0.45) 100%
+    );
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+/* Avatar Card */
+.avatar-wrapper {
+    width: 112px;
+    height: 112px;
+    min-width: 112px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.avatar-placeholder {
+    font-size: 40px;
+    font-weight: 800;
+    color: #2563eb;
+}
+
+/* Cột thông tin thương hiệu */
+.info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.brand-name {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+}
+
+.brand-description {
+    font-size: 15px;
+    color: #e2e8f0;
+    margin: 2px 0 6px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Hàng đánh giá theo số sao */
+.rating-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.stars-box {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.star-icon {
+    font-size: 15px;
+    color: #fbbf24;
+}
+
+.star-empty {
+    color: #fbbf24;
+}
+
+.rating-score {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-left: 2px;
+}
+
+.rating-separator {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0 1px;
+}
+
+.rating-users {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #cbd5e1;
+    font-size: 13.5px;
+    font-weight: 500;
+}
+
+.rating-users i {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hàng số cửa hàng trong hệ thống */
+.store-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #cbd5e1;
+    font-size: 13.5px;
+    margin-top: 2px;
+}
+
+.store-row i {
+    color: #60a5fa;
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .brand-hero {
+        min-height: 320px;
+        padding: 48px 0 28px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .hero-content {
+        gap: 16px;
+    }
+
+    .avatar-wrapper {
+        width: 84px;
+        height: 84px;
+        min-width: 84px;
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .brand-name {
+        font-size: 24px;
+    }
+
+    .brand-description {
+        font-size: 13.5px;
+    }
+
+    .rating-row {
+        gap: 5px;
+    }
+
+    .star-icon {
+        font-size: 13.5px;
+    }
+}

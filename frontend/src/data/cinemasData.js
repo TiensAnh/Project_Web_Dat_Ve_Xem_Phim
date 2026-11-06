@@ -1,0 +1,538 @@
+export const BRAND_ITEMS = [
+    {
+        id: 'all',
+        name: 'Tất cả',
+        src: 'https://homepage.momocdn.net/next-js/_next/static/public/cinema/dexuat-icon.svg',
+        badge: null,
+    },
+    {
+        id: 'cgv',
+        name: 'CGV',
+        src: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Hệ thống rạp chiếu phim lớn nhất Việt Nam',
+        rating: 5,
+        ratingCount: 7064,
+        storeCount: 91,
+    },
+    {
+        id: 'lotte',
+        name: 'Lotte Cinema',
+        src: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170617-637584231772974269.png',
+        badge: 'https://cinema.momocdn.net/img/1771017505544178-Lotte89K.png',
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Hệ thống rạp chiếu phim từ Hàn Quốc',
+        rating: 5,
+        ratingCount: 10567,
+        storeCount: 49,
+        promotion: 'Ưu đãi 55K/vé 2D thứ 3 hàng tuần; 89K/vé 2D cả tuần không giới hạn',
+    },
+    {
+        id: 'galaxy',
+        name: 'Galaxy Cinema',
+        src: 'https://homepage.momocdn.net/cinema/momo-upload-api-211123095138-637732578984425272.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Mang Hollywood đến gần bạn',
+        rating: 5,
+        ratingCount: 2242,
+        storeCount: 33,
+    },
+    {
+        id: 'bhd',
+        name: 'BHD Star',
+        src: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170453-637584230934981809.png',
+        badge: 'https://cinema.momocdn.net/img/9573824075907633-image (11).png',
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Hệ thống rạp chiếu phim hiện đại',
+        rating: 5,
+        ratingCount: 2282,
+        storeCount: 11,
+        promotion: '75K/vé 2D trong tuần, 95K/vé 2D cuối tuần, giảm 10% cho vé trên 110K. Giá ưu đãi chưa bao gồm phụ thu theo quy định của BHD',
+    },
+    {
+        id: 'beta',
+        name: 'Beta Cinemas',
+        src: 'https://homepage.momocdn.net/cinema/momo-upload-api-210813104719-637644484394328824.png',
+        badge: 'https://cinema.momocdn.net/img/4805942176586817-Beta 58K.png',
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Rạp chiếu phim Beta Cinemas',
+        rating: 5,
+        ratingCount: 7921,
+        storeCount: 29,
+        promotion: 'Ưu đãi cả tuần: 58K/VÉ 2D từ T2-T6, 62K/VÉ 2D từ T7-CN. Không áp dụng tại Beta Hồ Tràm, Phú Mỹ, Tân Uyên, Trần Quang Khải',
+    },
+    {
+        id: 'cinestar',
+        name: 'Cinestar',
+        src: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170530-637584231309495829.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191056-637643922560498568.jpg',
+        description: 'Hệ thống rạp chiếu phim giá rẻ, hiện đại bậc nhất',
+        rating: 5,
+        ratingCount: 4163,
+        storeCount: 10,
+    },
+    {
+        id: 'megags',
+        name: 'Mega GS',
+        src: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170511-637584231119272266.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Rạp chiếu phim chất lượng cao với phòng chiếu hiện đại',
+        rating: 4,
+        ratingCount: 1420,
+        storeCount: 3,
+    },
+    {
+        id: 'dcine',
+        name: 'DCINE',
+        src: 'https://img.mservice.io/momo_app_v2/new_version/img/THAO.MAI/DcineLogo.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191105-637643922659947662.jpg',
+        description: 'Cụm rạp phong cách hiện đại cùng trải nghiệm âm thanh sống động',
+        rating: 4,
+        ratingCount: 860,
+        storeCount: 2,
+    },
+    {
+        id: 'ncc',
+        name: 'Trung Tâm Chiếu Phim Quốc Gia (NCC)',
+        src: 'https://homepage.momocdn.net/cinema/ncclogo-260325100933.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/nccbackground-260325155354.jpg',
+        description: 'Trung tâm chiếu phim quốc gia uy tín bậc nhất tại Thủ đô Hà Nội',
+        rating: 5,
+        ratingCount: 8520,
+        storeCount: 1,
+        promotion: 'Giá vé ưu đãi học sinh, sinh viên và các suất chiếu sớm',
+    },
+    {
+        id: 'starlight',
+        name: 'Starlight Cinema',
+        src: 'https://cinema.momocdn.net/XS/starlight/image.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Cụm rạp giải trí hiện đại hàng đầu khu vực miền Trung và Tây Nguyên',
+        rating: 5,
+        ratingCount: 1250,
+        storeCount: 6,
+        promotion: 'Ưu đãi đồng giá vé 45K thành viên vào thứ 3 hàng tuần',
+    },
+    {
+        id: 'rio',
+        name: 'Rio',
+        src: 'https://homepage.momocdn.net/img/momo-amazone-s3-api-250505103419-638820380597920724.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-250521164418-638834426586725265.jpg',
+        description: 'Hệ thống rạp chiếu phim giải trí thân thiện và tiện nghi',
+        rating: 4,
+        ratingCount: 920,
+        storeCount: 4,
+    },
+    {
+        id: 'cinemax',
+        name: 'Cinemax',
+        src: 'https://homepage.momocdn.net/cinema/momo-upload-api-221108100132-638034984925107129.png',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Rạp chiếu phim Cinemax với màn chiếu lớn sắc nét',
+        rating: 4,
+        ratingCount: 650,
+        storeCount: 2,
+    },
+    {
+        id: 'aeonbeta',
+        name: 'AEON BETA',
+        src: 'https://homepage.momocdn.net/img/aeonbetalogo-zip-260706160816.jpg',
+        badge: null,
+        coverImage: 'https://homepage.momocdn.net/cinema/momo-upload-api-210812191129-637643922898236024.jpg',
+        description: 'Hợp tác liên doanh rạp chiếu phim hiện đại chuẩn Nhật Bản',
+        rating: 5,
+        ratingCount: 1890,
+        storeCount: 4,
+        promotion: 'Ưu đãi đặc biệt tại các trung tâm thương mại AEON Mall',
+    },
+];
+
+// Danh sách 8 thương hiệu rạp lớn nhất được hiển thị trên trang Tất cả rạp chiếu
+export const MAJOR_BRAND_IDS = ['cgv', 'lotte', 'galaxy', 'bhd', 'beta', 'cinestar', 'ncc', 'starlight'];
+
+export function getMajorBrands() {
+    return MAJOR_BRAND_IDS.map((id) => BRAND_ITEMS.find((b) => b.id === id)).filter(Boolean);
+}
+
+// Danh sách 13 thương hiệu sắp xếp ưu tiên 8 brand lớn trước
+export const ALL_BRAND_IDS = [
+    'cgv', 'lotte', 'galaxy', 'bhd', 'beta', 'cinestar', 'ncc', 'starlight',
+    'megags', 'dcine', 'rio', 'cinemax', 'aeonbeta'
+];
+
+export function getAllBrands() {
+    return ALL_BRAND_IDS.map((id) => BRAND_ITEMS.find((b) => b.id === id)).filter(Boolean);
+}
+
+export function getBrandById(brandId) {
+    if (!brandId || brandId === 'all') return BRAND_ITEMS.find((b) => b.id === 'cgv');
+    const lowerId = String(brandId).toLowerCase();
+    return BRAND_ITEMS.find((b) => b.id.toLowerCase() === lowerId) || BRAND_ITEMS.find((b) => b.id === 'cgv');
+}
+
+export function getCinemaById(cinemaId) {
+    if (!cinemaId) return CINEMAS_DATA[0];
+    const cinema = CINEMAS_DATA.find((c) => String(c.id).toLowerCase() === String(cinemaId).toLowerCase())
+        || CINEMAS_DATA.find((c) => c.name.toLowerCase().includes(String(cinemaId).toLowerCase()))
+        || CINEMAS_DATA[0];
+
+    return {
+        ...cinema,
+        mapUrl: cinema.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cinema.name + ' ' + cinema.address)}`,
+    };
+}
+
+export const CINEMAS_DATA = [
+    // CGV
+    {
+        id: 1,
+        brandId: 'cgv',
+        name: 'CGV Vincom Center Bà Triệu',
+        city: 'Hà Nội',
+        address: 'Tầng 6, Vincom Center Hà Nội, 191 Bà Triệu, Q. Hai Bà Trưng, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        hotline: '1900 6017',
+    },
+    {
+        id: 2,
+        brandId: 'cgv',
+        name: 'CGV Aeon Hà Đông',
+        city: 'Hà Nội',
+        address: 'Tầng 3, TTTM Aeon Mall Hà Đông, P. Dương Nội, Q. Hà Đông, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        hotline: '1900 6017',
+    },
+    {
+        id: 3,
+        brandId: 'cgv',
+        name: 'CGV Vincom Metropolis Liễu Giai',
+        city: 'Hà Nội',
+        address: 'Tầng 3, Vincom Center Metropolis, 29 Liễu Giai, Q. Ba Đình, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        hotline: '1900 6017',
+    },
+    {
+        id: 4,
+        brandId: 'cgv',
+        name: 'CGV Vincom Đồng Khởi',
+        city: 'Hồ Chí Minh',
+        address: 'Tầng 3, TTTM Vincom Center Đồng Khởi, 72 Lê Thánh Tôn, Bến Nghé, Q. 1, TP. HCM',
+        logo: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        hotline: '1900 6017',
+    },
+    {
+        id: 5,
+        brandId: 'cgv',
+        name: 'CGV Sư Vạn Hạnh',
+        city: 'Hồ Chí Minh',
+        address: 'Tầng 6, Vạn Hạnh Mall, 11 Sư Vạn Hạnh, P. 12, Q. 10, TP. HCM',
+        logo: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        hotline: '1900 6017',
+    },
+    {
+        id: 6,
+        brandId: 'cgv',
+        name: 'CGV Vincom Đà Nẵng',
+        city: 'Đà Nẵng',
+        address: 'Tầng 4, TTTM Vincom Đà Nẵng, Ngô Quyền, An Hải Bắc, Sơn Trà, Đà Nẵng',
+        logo: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        hotline: '1900 6017',
+    },
+
+    // Lotte Cinema
+    {
+        id: 7,
+        brandId: 'lotte',
+        name: 'Lotte Cinema Landmark Hà Nội',
+        city: 'Hà Nội',
+        address: 'Tầng 5 Keangnam Hanoi Landmark Tower, Phạm Hùng, Q. Nam Từ Liêm, Hà Nội',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170617-637584231772974269.png',
+        hotline: '024 3837 8032',
+    },
+    {
+        id: 8,
+        brandId: 'lotte',
+        name: 'Lotte Cinema Thăng Long',
+        city: 'Hà Nội',
+        address: 'Tầng 3 Big C Thăng Long, 222 Trần Duy Hưng, Q. Cầu Giấy, Hà Nội',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170617-637584231772974269.png',
+        hotline: '024 3783 4075',
+    },
+    {
+        id: 9,
+        brandId: 'lotte',
+        name: 'Lotte Cinema Nam Sài Gòn',
+        city: 'Hồ Chí Minh',
+        address: 'Tầng 3 Lotte Mart, 469 Nguyễn Hữu Thọ, P. Tân Hưng, Q. 7, TP. HCM',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170617-637584231772974269.png',
+        hotline: '028 3775 2524',
+    },
+    {
+        id: 10,
+        brandId: 'lotte',
+        name: 'Lotte Cinema Gò Vấp',
+        city: 'Hồ Chí Minh',
+        address: 'Tầng 3 Lotte Mart, 242 Nguyễn Văn Lượng, P. 10, Q. Gò Vấp, TP. HCM',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170617-637584231772974269.png',
+        hotline: '028 3620 2151',
+    },
+    {
+        id: 11,
+        brandId: 'lotte',
+        name: 'Lotte Cinema Đà Nẵng',
+        city: 'Đà Nẵng',
+        address: 'Tầng 5 Lotte Mart Đà Nẵng, 6 Nại Nam, Hoà Cường Bắc, Hải Châu, Đà Nẵng',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170617-637584231772974269.png',
+        hotline: '0236 3679 667',
+    },
+
+    // Galaxy Cinema
+    {
+        id: 12,
+        brandId: 'galaxy',
+        name: 'Galaxy Cinema Tràng An',
+        city: 'Hà Nội',
+        address: 'Tòa nhà Tràng An Complex, Số 1 Phùng Chí Kiên, Nghĩa Đô, Cầu Giấy, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-211123095138-637732578984425272.png',
+        hotline: '1900 2224',
+    },
+    {
+        id: 13,
+        brandId: 'galaxy',
+        name: 'Galaxy Cinema Mipec Long Biên',
+        city: 'Hà Nội',
+        address: 'Tầng 6 TTTM Mipec Riverside, Số 2 Long Biên 2, Ngọc Lâm, Long Biên, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-211123095138-637732578984425272.png',
+        hotline: '1900 2224',
+    },
+    {
+        id: 14,
+        brandId: 'galaxy',
+        name: 'Galaxy Cinema Nguyễn Du',
+        city: 'Hồ Chí Minh',
+        address: '116 Nguyễn Du, P. Bến Thành, Q. 1, TP. HCM',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-211123095138-637732578984425272.png',
+        hotline: '1900 2224',
+    },
+    {
+        id: 15,
+        brandId: 'galaxy',
+        name: 'Galaxy Cinema Quang Trung',
+        city: 'Hồ Chí Minh',
+        address: 'Lầu 3 CoopMart Quang Trung, 304A Quang Trung, P. 11, Gò Vấp, TP. HCM',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-211123095138-637732578984425272.png',
+        hotline: '1900 2224',
+    },
+
+    // Beta Cinemas
+    {
+        id: 16,
+        brandId: 'beta',
+        name: 'Beta Cinemas Thanh Xuân',
+        city: 'Hà Nội',
+        address: 'Tầng hầm B1, Tòa nhà Golden West, số 2 Lê Văn Thiêm, Nhân Chính, Thanh Xuân, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-210813104719-637644484394328824.png',
+        hotline: '0934 632 682',
+    },
+    {
+        id: 17,
+        brandId: 'beta',
+        name: 'Beta Cinemas Mỹ Đình',
+        city: 'Hà Nội',
+        address: 'Tầng hầm B1, Tòa nhà Mỹ Đình Golden Palace, Mễ Trì, Nam Từ Liêm, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-210813104719-637644484394328824.png',
+        hotline: '0934 632 682',
+    },
+    {
+        id: 18,
+        brandId: 'beta',
+        name: 'Beta Cinemas Quang Trung',
+        city: 'Hồ Chí Minh',
+        address: '645 Quang Trung, P. 11, Q. Gò Vấp, TP. HCM',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-210813104719-637644484394328824.png',
+        hotline: '0934 632 682',
+    },
+
+    // BHD Star
+    {
+        id: 19,
+        brandId: 'bhd',
+        name: 'BHD Star Vincom Phạm Ngọc Thạch',
+        city: 'Hà Nội',
+        address: 'Tầng 8, TTTM Vincom, số 2 Phạm Ngọc Thạch, Kim Liên, Đống Đa, Hà Nội',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170453-637584230934981809.png',
+        hotline: '1900 2099',
+    },
+    {
+        id: 20,
+        brandId: 'bhd',
+        name: 'BHD Star Bitexco',
+        city: 'Hồ Chí Minh',
+        address: 'Tầng 3 & 4, Tòa tháp Bitexco, số 2 Hải Triều, Bến Nghé, Q. 1, TP. HCM',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170453-637584230934981809.png',
+        hotline: '1900 2099',
+    },
+
+    // Cinestar
+    {
+        id: 21,
+        brandId: 'cinestar',
+        name: 'Cinestar Quốc Thanh',
+        city: 'Hồ Chí Minh',
+        address: '271 Nguyễn Trãi, P. Nguyễn Cư Trinh, Q. 1, TP. HCM',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170530-637584231309495829.png',
+        hotline: '028 7300 8881',
+    },
+    {
+        id: 22,
+        brandId: 'cinestar',
+        name: 'Cinestar Hai Bà Trưng',
+        city: 'Hồ Chí Minh',
+        address: '135 Hai Bà Trưng, P. Bến Nghé, Q. 1, TP. HCM',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170530-637584231309495829.png',
+        hotline: '028 7300 8881',
+    },
+
+    // Mega GS
+    {
+        id: 23,
+        brandId: 'megags',
+        name: 'Mega GS Cao Thắng',
+        city: 'Hồ Chí Minh',
+        address: '19 Cao Thắng, P. 2, Q. 3, TP. HCM',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170511-637584231119272266.png',
+        hotline: '028 6264 9911',
+    },
+
+    // NCC
+    {
+        id: 24,
+        brandId: 'ncc',
+        name: 'Trung Tâm Chiếu Phim Quốc Gia (NCC)',
+        city: 'Hà Nội',
+        address: '87 Láng Hạ, P. Thành Công, Q. Ba Đình, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/ncclogo-260325100933.png',
+        hotline: '024 3514 1791',
+    },
+
+    // Starlight Cinema
+    {
+        id: 25,
+        brandId: 'starlight',
+        name: 'Starlight Đà Nẵng',
+        city: 'Đà Nẵng',
+        address: 'Tầng 3 & 4 TTTM Nguyễn Kim, 46 Điện Biên Phủ, P. Chính Gián, Q. Thanh Khê, Đà Nẵng',
+        logo: 'https://cinema.momocdn.net/XS/starlight/image.png',
+        hotline: '1900 1722',
+    },
+    {
+        id: 26,
+        brandId: 'starlight',
+        name: 'Starlight Buôn Ma Thuột',
+        city: 'Đắk Lắk',
+        address: 'Tầng 5 Vincom Plaza Buôn Ma Thuột, 78 Lý Thường Kiệt, P. Thắng Lợi, TP. Buôn Ma Thuột',
+        logo: 'https://cinema.momocdn.net/XS/starlight/image.png',
+        hotline: '1900 1722',
+    },
+    {
+        id: 27,
+        brandId: 'starlight',
+        name: 'Starlight Quy Nhơn',
+        city: 'Bình Định',
+        address: 'Tầng 8 An Phú Thịnh Plaza, 52A Tăng Bạt Hổ, P. Lê Lợi, TP. Quy Nhơn',
+        logo: 'https://cinema.momocdn.net/XS/starlight/image.png',
+        hotline: '1900 1722',
+    },
+
+    // Các rạp hiển thị trong MovieDetail
+    {
+        id: 'beta_gp',
+        brandId: 'beta',
+        name: 'Beta Giải Phóng',
+        city: 'Hà Nội',
+        address: 'Tầng 3, tòa IP2, Chung cư Imperial, số 360 Giải Phóng, Phương Liệt, Thanh Xuân, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-210813104719-637644484394328824.png',
+        hotline: '1900 6368',
+    },
+    {
+        id: 'beta_md',
+        brandId: 'beta',
+        name: 'Beta Mỹ Đình',
+        city: 'Hà Nội',
+        address: 'Tầng hầm B1, tòa nhà Golden Palace, Đường Mễ Trì, Phường Mễ Trì, Quận Nam Từ Liêm, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-210813104719-637644484394328824.png',
+        hotline: '1900 6368',
+    },
+    {
+        id: 'cgv_td',
+        brandId: 'cgv',
+        name: 'CGV Trương Định Plaza',
+        city: 'Hà Nội',
+        address: 'Tầng 5, 461 Trương Định, Hoàng Mai, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        hotline: '1900 6017',
+    },
+    {
+        id: 'cgv_royal',
+        brandId: 'cgv',
+        name: 'CGV Vincom Royal City',
+        city: 'Hà Nội',
+        address: 'Tầng B2 - Khu R4 | Vincom Mega Mall Royal City, số 72A đường Nguyễn Trãi, quận Thanh Xuân, thành phố Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-amazone-s3-api-240829164527-638605467276820522.png',
+        hotline: '1900 6017',
+    },
+    {
+        id: 'lotte_hd',
+        brandId: 'lotte',
+        name: 'Lotte Hà Đông',
+        city: 'Hà Nội',
+        address: 'Tầng 4, Mê Linh Plaza Hà Đông, Đường Tô Hiệu, P.Hà Cầu, Q.Hà Đông',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170617-637584231772974269.png',
+        hotline: '1900 2099',
+    },
+    {
+        id: 'lotte_westlake',
+        brandId: 'lotte',
+        name: 'Lotte West Lake',
+        city: 'Hà Nội',
+        address: 'Tầng 4 Lotte Mall West Lake Hanoi, 683 Lạc Long Quân, Tây Hồ, Hà Nội',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170617-637584231772974269.png',
+        hotline: '1900 2099',
+    },
+    {
+        id: 'ncc_lh',
+        brandId: 'ncc',
+        name: 'Trung tâm Chiếu phim Quốc gia (NCC)',
+        city: 'Hà Nội',
+        address: 'Số 87 Láng Hạ, Phường Thành Công, Quận Ba Đình, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/ncclogo-260325100933.png',
+        hotline: '024 3514 1791',
+    },
+    {
+        id: 'galaxy_ad',
+        brandId: 'galaxy',
+        name: 'Galaxy CineX AEON Mall Hà Đông',
+        city: 'Hà Nội',
+        address: 'Tầng 3 TTTM AEON Mall Hà Đông, Phường Dương Nội, Quận Hà Đông, Hà Nội',
+        logo: 'https://homepage.momocdn.net/cinema/momo-upload-api-211123095138-637732578984425272.png',
+        hotline: '1900 2224',
+    },
+    {
+        id: 'bhd_pnt',
+        brandId: 'bhd',
+        name: 'BHD Star Phạm Ngọc Thạch',
+        city: 'Hà Nội',
+        address: 'Tầng 8, Vincom Center, số 2 Phạm Ngọc Thạch, Đống Đa, Hà Nội',
+        logo: 'https://homepage.momocdn.net/blogscontents/momo-upload-api-210604170453-637584230934981809.png',
+        hotline: '1900 2099',
+    },
+];

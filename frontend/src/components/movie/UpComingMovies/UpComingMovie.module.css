@@ -1,0 +1,93 @@
+
+.upComingMovie{
+    width:100%;
+    height:auto;
+    display: block;
+    padding: 0px 0px 32px;
+    left: 0;
+    right: 0;
+    background: transparent;
+}
+.upComingMovie-container{
+    max-width: 1200px;
+    display: block;
+    margin:0 auto;
+    padding: 0px 26px;
+}
+.upComingMovie-wrapper-title {
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.upComingMovie-movieList{
+    width: 100%;
+    color: var(--upcoming-text-color, white);
+}
+.upComingMovie-wrapper-title h1{
+    color: var(--upcoming-title-color, var(--upcoming-text-color, white));
+}
+.upComingMovie-wrapper-title h1.title-light {
+    color: var(--upcoming-title-color, var(--upcoming-text-color, #0f172a));
+    font-weight: 800;
+    text-shadow: none;
+}
+
+/* Chế độ sáng (Light Theme) khi đặt trên trang nền trắng */
+.upComingMovie.light-theme {
+    padding: 16px 0 32px;
+}
+
+.upComingMovie.light-theme .upComingMovie-wrapper-title {
+    margin-bottom: 24px;
+}
+
+.upComingMovie.light-theme .upComingMovie-wrapper-title h1 {
+    color: var(--upcoming-title-color, var(--upcoming-text-color, #0f172a));
+    font-weight: 800;
+    text-shadow: none;
+}
+
+.upComingMovie.light-theme .upComingMovie-movieList {
+    color: var(--upcoming-text-color, #0f172a);
+}
+
+.upComingMovie.light-theme .upComingMovie-moreMovie {
+    margin-top: 28px;
+}
+.upComingMovie-moreMovie{
+    font-size: 17px;
+    background: #2563EB;
+    color:white;
+    cursor: pointer;
+    max-width: fit-content;
+    border-radius: 10px;
+    margin: 0 auto;
+     padding:10px 10px;
+     transition: all 0.3s ease-in-out;
+     margin-top: 20px;
+}
+.upComingMovie-moreMovie:hover{
+    background-color: #2564ebe5;
+}
+.upComingMovie-moreMovie a{
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .upComingMovie {
+        padding: 24px 0px;
+    }
+    .upComingMovie-container {
+        padding: 0px 16px;
+    }
+    .upComingMovie-wrapper-title {
+        margin-bottom: 24px;
+    }
+    .upComingMovie-moreMovie {
+        margin-top: 24px;
+    }
+}

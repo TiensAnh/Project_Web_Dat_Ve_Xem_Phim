@@ -1,0 +1,53 @@
+.brand-page {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    flex: 1;
+    width: 100%;
+    /* Bù trừ header cố định */
+    padding-top: 60px;
+}
+
+.brand-body-container {
+    width: 100%;
+    padding: 32px 0 60px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Khối Phim với ảnh nền rạp chiếu phim */
+.movie-showcase {
+    width: 100%;
+    position: relative;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.75) 0%,
+        rgba(0, 0, 0, 0.35) 20%,
+        rgba(0, 0, 0, 0.25) 50%,
+        rgba(15, 23, 42, 0.7) 80%,
+        #0f172a 100%
+    ), url('../../assets/images/cinema-hall-upcoming.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 40px 0 24px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .movie-showcase {
+        padding: 24px 0 16px;
+    }
+}

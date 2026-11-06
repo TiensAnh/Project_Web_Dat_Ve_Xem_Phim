@@ -1,0 +1,119 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    background-color: #ffffff;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    flex-shrink: 0;
+}
+
+.close-icon-btn {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: #1e293b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-icon-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.modal-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.header-spacer {
+    width: 36px;
+}
+
+.modal-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+.brands-section {
+    background-color: #ffffff;
+    padding: 0 4px;
+    flex-shrink: 0;
+}
+
+.cinemas-section {
+    flex: 1;
+    min-height: 50px;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 8px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 769px) {
+    .modal-overlay {
+        display: none !important;
+    }
+}

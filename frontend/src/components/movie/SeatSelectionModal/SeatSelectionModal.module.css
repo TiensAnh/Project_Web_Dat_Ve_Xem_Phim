@@ -1,0 +1,392 @@
+.dialog {
+    width: 60vw;
+    height: min(860px, calc(100dvh - 24px));
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    background: #282425;
+    color: #fff;
+    font: inherit;
+    box-shadow: 0 24px 100px #0009;
+    overflow: hidden;
+}
+
+.dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog::backdrop {
+    background: #020617c9;
+    backdrop-filter: blur(5px);
+}
+
+.dialog button {
+    font: inherit;
+    color: inherit;
+}
+
+.dialog button:focus-visible {
+    outline: 2px solid #7dd3fc;
+    outline-offset: 3px;
+}
+
+.header {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    padding: 12px 60px;
+    background: #2563eb;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.backButton {
+    position: absolute;
+    left: 8px;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.backButton:hover {
+    background: #ffffff20;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.viewport {
+    position: relative;
+    flex: 1;
+    min-height: 120px;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.viewport.dragging,
+.viewport.dragging * {
+    cursor: grabbing;
+}
+
+.map {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 690px;
+    height: 430px;
+    transform-origin: center;
+}
+
+.screen {
+    width: 190px;
+    margin: 8px auto 18px;
+    padding-top: 5px;
+    border-top: 3px solid #fff;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: #e4e4e7;
+}
+
+.seatGrid {
+    position: relative;
+    display: grid;
+    gap: 6px;
+    width: 674px;
+    margin: auto;
+}
+
+/* Highlight the central block, rows D–H and seats 7–14. */
+.seatGrid::before {
+    content: '';
+    position: absolute;
+    top: 98px;
+    left: 200px;
+    width: 276px;
+    height: 174px;
+    border: 1px solid #9ed9b4;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.seatRow {
+    display: grid;
+    grid-template-columns: repeat(20, 28px);
+    gap: 6px;
+}
+
+.seat {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.standard {
+    background: #7729ce;
+}
+
+.vip {
+    background: #ff2035;
+}
+
+.sweetbox {
+    background: #ed299b;
+}
+
+.seat:hover {
+    filter: brightness(1.2);
+}
+
+.coupleRow {
+    grid-template-columns: repeat(9, 1fr);
+}
+
+.coupleRow .seat {
+    width: 100%;
+    border-radius: 16px;
+}
+
+.seat.selected,
+.selectedKey {
+    background: #d72b86;
+    border: 1px solid #fff;
+}
+
+.seat[aria-disabled="true"],
+.soldKey {
+    background: #494348;
+    color: #fff;
+    cursor: default;
+    filter: none;
+}
+
+.legend {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: center;
+    gap: 8px 22px;
+    padding: 10px 12px;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend i {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+.centralKey {
+    border: 1px solid #9ed9b4;
+}
+
+.seatDetails {
+    flex-shrink: 0;
+    padding: 0 16px 14px;
+    max-height: 90px;
+    overflow: auto;
+    text-align: center;
+    font-size: 14px;
+}
+
+.seatDetails summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.seatDetails summary::-webkit-details-marker {
+    display: none;
+}
+
+.seatDetails u {
+    font-weight: 700;
+}
+
+.seatDetails p {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #d4d4d8;
+}
+
+.footer {
+    flex-shrink: 0;
+    padding: 16px;
+    background: #fff;
+    color: #171717;
+}
+
+.movieTitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.movieTitle h3 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.ageBadge {
+    padding: 3px 12px;
+    border-radius: 16px;
+    background: #a92125;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.sessionInfo {
+    margin: 6px 0 0;
+    color: #f45136;
+    font-size: 16px;
+}
+
+.chosenSeats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: center;
+    margin-top: 8px;
+    padding: 14px 0;
+    border-top: 1px solid #e4e4e7;
+    border-bottom: 1px solid #e4e4e7;
+    max-height: 76px;
+    overflow: auto;
+}
+
+.chosenSeats > span,
+.checkout span {
+    color: #737373;
+    font-size: 16px;
+}
+
+.chosenSeats strong {
+    font-size: 15px;
+    color: #2563eb;
+}
+
+.checkout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 12px;
+}
+
+.checkout strong {
+    display: block;
+    font-size: 23px;
+    line-height: 1.2;
+}
+
+.checkout .buyButton {
+    min-width: 148px;
+    padding: 16px 28px;
+    border: 0;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .dialog {
+        width: 100vw;
+        height: 100dvh;
+        border: 0;
+        border-radius: 0;
+    }
+
+    .header h2 {
+        font-size: 20px;
+    }
+
+    .legend {
+        gap: 6px 12px;
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .legend span {
+        gap: 5px;
+    }
+
+    .legend i {
+        width: 16px;
+        height: 16px;
+    }
+
+    .seatDetails {
+        font-size: 12px;
+    }
+
+    .footer {
+        padding: 12px 16px max(12px, env(safe-area-inset-bottom));
+    }
+
+    .movieTitle h3 {
+        font-size: 19px;
+    }
+
+    .sessionInfo {
+        font-size: 13px;
+    }
+
+    .checkout .buyButton {
+        min-width: 120px;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-height: 560px) and (min-width: 601px) {
+    .dialog {
+        overflow-y: auto;
+    }
+
+    .middle {
+        flex: none;
+        min-height: 280px;
+    }
+}

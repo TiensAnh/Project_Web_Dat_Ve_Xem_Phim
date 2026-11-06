@@ -1,0 +1,308 @@
+.movie-showtime-container {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tùy chỉnh thanh cuộn cho danh sách phim */
+.movie-showtime-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.movie-showtime-container::-webkit-scrollbar-thumb {
+    background-color: #e5e7eb;
+    border-radius: 4px;
+}
+
+/* Từng hàng phim */
+.movie-item {
+    display: flex;
+    gap: 18px;
+    padding: 22px 18px;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.2s ease;
+}
+
+.movie-item:last-child {
+    border-bottom: none;
+}
+
+/* 1. Cột trái: Poster */
+.poster-wrapper {
+    max-width: 120px;
+    background-color: white;   
+}
+
+.poster-link {
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    outline: none;
+}
+
+.poster-inner{
+    max-width: 120px;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    border-radius: 8px;
+}
+.poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: all 0.3s ease-in-out;
+}
+.poster-img:hover{
+    scale:1.1;
+}
+
+/* 2. Cột phải: Thông tin phim */
+.movie-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Nhãn độ tuổi */
+.age-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #eab308; /* Mặc định vàng nghệ */
+    margin-bottom: 6px;
+    line-height: 1.2;
+}
+
+.badge-18 {
+    background-color: #dc2626; /* 18+ Đỏ */
+}
+
+.badge-13 {
+    background-color: #d97706; /* 13+ Cam đất */
+}
+
+.badge-p {
+    background-color: #16a34a; /* P Xanh lá */
+}
+
+/* Tên phim */
+.title-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    max-width: fit-content;
+}
+
+.movie-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 4px 0;
+    line-height: 1.35;
+    transition: color 0.2s ease;
+}
+
+.title-link:hover .movie-title {
+    color: #2563EB;
+}
+
+.dark-theme .title-link:hover .movie-title {
+    color: #60a5fa;
+}
+
+/* Thể loại */
+.movie-genre {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+/* Định dạng (2D Phụ đề) */
+.format-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+/* Lưới các nút suất chiếu */
+.showtimes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Nút suất chiếu: Tinh chỉnh tông xanh dương đồng bộ với web */
+.showtime-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 7px 14px;
+    border: 1px solid #bfdbfe; /* Viền xanh nhạt thanh lịch */
+    border-radius: 8px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    user-select: none;
+}
+
+.start-time {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #2563EB; /* Giờ bắt đầu: Xanh dương chủ đạo */
+    transition: color 0.2s ease;
+}
+
+.separator {
+    color: #94a3b8;
+    font-size: 12px;
+    margin: 0 2px;
+}
+
+.end-time {
+    font-size: 12px;
+    font-weight: 400;
+    color: #64748b;
+    transition: color 0.2s ease;
+}
+
+/* Hiệu ứng Hover */
+.showtime-btn:hover {
+    background-color: #eff6ff;
+    border-color: #2563EB;
+    transform: translateY(-1.5px);
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.18);
+}
+
+/* Trạng thái suất chiếu đang được chọn (Active) */
+.showtime-btn.active {
+    background-color: #2563EB;
+    border-color: #2563EB;
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+}
+
+.showtime-btn.active .start-time,
+.showtime-btn.active .separator,
+.showtime-btn.active .end-time {
+    color: #ffffff;
+}
+
+/* ==========================================
+   RESPONSIVE CHO TABLET VÀ MOBILE
+   ========================================== */
+@media (max-width: 640px) {
+    .movie-item {
+        gap: 14px;
+        padding: 16px 12px;
+    }
+
+    .poster-wrapper {
+        width: 85px;
+        min-width: 85px;
+    }
+
+    .movie-title {
+        font-size: 14.5px;
+    }
+
+    .movie-genre {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .showtimes-grid {
+        gap: 8px;
+    }
+
+    .showtime-btn {
+        padding: 6px 10px;
+    }
+
+    .start-time {
+        font-size: 12.5px;
+    }
+
+    .end-time {
+        font-size: 11.5px;
+    }
+}
+
+/* ===================================================
+   DARK THEME
+   =================================================== */
+.movie-showtime-container.dark-theme {
+    background-color: transparent;
+}
+
+.dark-theme .movie-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dark-theme .poster-wrapper {
+    background-color: transparent;
+}
+
+.dark-theme .movie-title {
+    color: #ffffff;
+}
+
+.dark-theme .movie-genre {
+    color: #94a3b8;
+}
+
+.dark-theme .format-text {
+    color: #cbd5e1;
+}
+
+.dark-theme .showtime-btn {
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dark-theme .showtime-btn:hover {
+    background-color: rgba(37, 99, 235, 0.2);
+    border-color: #2563EB;
+}
+
+.dark-theme .start-time {
+    color: #60a5fa;
+}
+
+.dark-theme .separator {
+    color: #64748b;
+}
+
+.dark-theme .end-time {
+    color: #94a3b8;
+}
+
+.dark-theme .showtime-btn.active {
+    background-color: #2563EB;
+    border-color: #2563EB;
+}
+
+.dark-theme .showtime-btn.active .start-time,
+.dark-theme .showtime-btn.active .separator,
+.dark-theme .showtime-btn.active .end-time {
+    color: #ffffff;
+}

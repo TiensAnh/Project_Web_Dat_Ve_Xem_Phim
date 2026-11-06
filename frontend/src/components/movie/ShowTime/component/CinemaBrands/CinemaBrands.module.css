@@ -1,0 +1,186 @@
+.cinemas-brands{
+    display: block;
+    border-bottom: 1px solid rgb(212, 211, 211)
+}
+
+.brands-slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.list-brands{
+    -webkit-user-select: none; 
+    -moz-user-select: none;    
+    -ms-user-select: none;     
+    user-select: none;  
+         
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 0.75rem 16px 0.5rem 16px;
+    overflow-x: auto;          
+    scroll-behavior: smooth;   
+    gap: 12px;
+    scrollbar-width: none;      
+}
+.list-brands::-webkit-scrollbar {
+    display: none;            
+}
+.wrapper-logo-brand-items{
+    width: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.logo-brand-items{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.border-box-img{
+    width:100%;
+    height:100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e4e4e4;
+    border-radius: 10px;
+
+}
+.wrapper-img{
+    min-width:40px;
+    width:90%;
+    height:90%;
+}
+.brand-img{
+    -webkit-user-drag: none; 
+     user-select: none;      
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+    object-position: center;
+}
+.name-brands{
+   display: flex;
+   align-items: center;
+   justify-content: center;         
+
+}
+.name-brands h5{
+    white-space: nowrap;  
+    text-overflow: ellipsis;
+    overflow: hidden;  
+    
+}
+.arrow-btn {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: #2563EB;
+    transition: all 0.2s ease;
+}
+.arrow-btn:hover {
+    background-color: #2563EB;
+    color: #ffffff;
+}
+.left-arrow {
+    left: 4px;
+}
+.right-arrow {
+    right: 4px;
+}
+.wrapper-btn-left{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;         
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, rgb(246, 246, 246), rgba(139, 139, 139, 0));
+    z-index: 10;
+}
+.wrapper-btn-right{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;          
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to left, rgb(246, 246, 246), rgba(139, 139, 139, 0));
+    z-index: 10;
+    transition: all 0.3s ease-in-out;
+}
+
+/* ===================================================
+   DARK THEME
+   =================================================== */
+.cinemas-brands.dark-theme {
+    border-bottom: none;
+    background-color: transparent;
+}
+
+.dark-theme .list-brands {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.dark-theme .border-box-img {
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: #ffffff; /* Giữ nền trắng cho các ô logo rạp giống Momo */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.dark-theme .border-box-img.selected-brand {
+    border-color: #2563EB;
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.55);
+}
+
+.dark-theme .name-brands h5 {
+    color: #cbd5e1;
+}
+
+.dark-theme .name-brands {
+    color: #cbd5e1;
+}
+
+.dark-theme .arrow-btn {
+    background-color: #1e293b;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.dark-theme .arrow-btn:hover {
+    background-color: #2563EB;
+}
+
+.dark-theme .wrapper-btn-left {
+    background: linear-gradient(to right, rgba(17, 24, 39, 0.95), transparent);
+}
+
+.dark-theme .wrapper-btn-right {
+    background: linear-gradient(to left, rgba(17, 24, 39, 0.95), transparent);
+}

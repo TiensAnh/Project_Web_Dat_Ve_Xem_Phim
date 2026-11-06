@@ -1,0 +1,261 @@
+.date-picker-container {
+    position: relative;
+    width: 100%;
+    padding: 12px 18px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f3f4f6;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    flex-shrink: 0; /* Luôn giữ cố định ở đầu cột */
+}
+
+.date-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Ẩn scrollbar Firefox */
+    padding: 1.5px 8px 1.5px 0;
+}
+
+@media (min-width: 641px) {
+    .date-list.center-dates {
+        justify-content: center;
+    }
+
+    .date-list.align-right {
+        justify-content: flex-end;
+        padding-right: 24px;
+    }
+}
+
+.date-list::-webkit-scrollbar {
+    display: none; 
+}
+
+
+.date-item {
+    width: 72px;
+    height: 74px;
+    min-width: 72px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    user-select: none;
+}
+
+.date-item:hover {
+    border-color: #2563EB;
+    transform: translateY(-1px);
+}
+
+.date-top {
+    flex: 1.2;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111827;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.date-number {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.date-bottom {
+    flex: 0.9;
+    background-color: #ffffff;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: color 0.15s ease;
+}
+
+.date-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+
+.date-item.active {
+    border: 1.5px solid #2563EB;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+}
+
+.date-item.active .date-top {
+    background-color: #2563EB;
+    color: #ffffff;
+}
+
+.date-item.active .date-bottom {
+    background-color: #ffffff;
+    border-top-color: transparent;
+    color: #2563EB;
+}
+
+.date-item.active .date-label {
+    font-weight: 600;
+}
+
+/* ===================================================
+   DARK THEME
+   =================================================== */
+.date-picker-container.dark-theme {
+    background-color: transparent;
+    border-bottom: none;
+    padding: 8px 0;
+}
+
+.date-item.item-dark {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.date-item.item-dark:hover {
+    border-color: #3b82f6;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.date-item.item-dark .date-top {
+    background-color: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+}
+
+.date-item.item-dark .date-bottom {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: #94a3b8;
+}
+
+.date-item.item-dark.active {
+    border: 1.5px solid #2563EB;
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+}
+
+.date-item.item-dark.active .date-top {
+    background-color: #2563EB;
+    color: #ffffff;
+}
+
+.date-item.item-dark.active .date-bottom {
+    background-color: #1e293b;
+    color: #93c5fd;
+    border-top-color: transparent;
+}
+
+/* ===================================================
+   SLIDER ARROWS & GRADIENT FADES
+   =================================================== */
+.arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: #2563EB;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.arrow-btn:hover {
+    background-color: #2563EB;
+    color: #ffffff;
+}
+
+.left-arrow {
+    left: 4px;
+}
+
+.right-arrow {
+    right: 4px;
+}
+
+.wrapper-btn-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 2px;
+    background: linear-gradient(to right, #ffffff 60%, transparent);
+    z-index: 10;
+}
+
+.wrapper-btn-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 2px;
+    background: linear-gradient(to left, #ffffff 60%, transparent);
+    z-index: 10;
+}
+
+/* Dark theme for DatePicker arrows */
+.dark-theme .arrow-btn {
+    background-color: rgba(30, 41, 59, 0.95);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.dark-theme .arrow-btn:hover {
+    background-color: #2563EB;
+    border-color: #2563EB;
+}
+
+.dark-theme .wrapper-btn-left {
+    background: linear-gradient(to right, rgba(17, 24, 39, 0.95) 50%, transparent);
+}
+
+.dark-theme .wrapper-btn-right {
+    background: linear-gradient(to left, rgba(17, 24, 39, 0.95) 50%, transparent);
+}
+
+/* Responsive on Mobile */
+@media (max-width: 640px) {
+    .date-item {
+        width: 64px;
+        height: 66px;
+        min-width: 64px;
+    }
+
+    .date-number {
+        font-size: 18px;
+    }
+
+    .date-label {
+        font-size: 11.5px;
+    }
+}

@@ -1,0 +1,119 @@
+.author-wrapper {
+    margin: 40px 0 50px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.tags-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.tags-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.4px;
+}
+
+.tags-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-badge {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: default;
+    transition: background-color 0.2s ease;
+}
+
+.tag-badge:hover {
+    background-color: #e2e8f0;
+}
+
+/* Author Box */
+.author-card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.author-avatar-wrap {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #eff6ff;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #bfdbfe;
+}
+
+.author-avatar {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.author-info {
+    flex: 1;
+}
+
+.author-role {
+    font-size: 12px;
+    font-weight: 700;
+    color: #2563eb;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.author-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px;
+}
+
+.author-bio {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .author-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 18px;
+    }
+
+    .author-avatar-wrap {
+        width: 48px;
+        height: 48px;
+    }
+
+    .author-avatar {
+        width: 28px;
+        height: 28px;
+    }
+}

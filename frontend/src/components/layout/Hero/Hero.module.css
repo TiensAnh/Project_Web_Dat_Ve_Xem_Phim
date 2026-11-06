@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.desktop-slider {
+    display: block;
+    width: 100%;
+}
+
+.mobile-slider {
+    display: none;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .desktop-slider {
+        display: none;
+    }
+
+    .mobile-slider {
+        display: block;
+    }
+}
