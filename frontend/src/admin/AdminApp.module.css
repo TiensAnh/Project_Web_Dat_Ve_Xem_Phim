@@ -1,0 +1,27 @@
+.root {
+  min-width: 320px;
+  min-height: 100dvh;
+  background: #f8fafc;
+  color: #111827;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.root,
+.root * {
+  box-sizing: border-box;
+}
+
+.root :where(button, input, textarea, select) {
+  font-family: inherit;
+}
+
+.root :where(button, a, summary):focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 4px;
+}

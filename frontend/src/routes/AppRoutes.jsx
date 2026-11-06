@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import AdminApp from '../admin/AdminApp.jsx';
 import Home from '../pages/Home/Home.jsx';
 import MovieDetailPage from '../pages/MovieDetail/MovieDetailPage.jsx';
 import ShowtimesPage from '../pages/Showtimes/ShowtimesPage.jsx';
@@ -13,6 +14,7 @@ function AppRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/admin" element={<AdminApp />} />
             <Route path="/lich-chieu" element={<ShowtimesPage />} />
             <Route path="/rap-chieu" element={<CinemasPage />} />
             <Route path="/rap-chieu/:brandId" element={<BrandPage />} />
