@@ -1,43 +1,21 @@
 .sidebar {
   position: fixed;
-  inset: 0 auto 0 0;
+  inset: var(--admin-header-height) auto 0 0;
   z-index: 30;
   display: flex;
   flex-direction: column;
-  width: 240px;
-  height: 100dvh;
+  width: var(--admin-sidebar-full-width);
+  transform: translateX(0);
+  transition: transform var(--admin-sidebar-transition);
   padding: 16px 12px 0;
   overflow: hidden;
-  background: #111827;
+  background: var(--admin-sidebar-background);
   color: #94a3b8;
-  border-right: 1px solid #1e293b;
+  border-right: 1px solid var(--admin-sidebar-border);
 }
 
-.brand {
-  position: relative;
-  flex-shrink: 0;
-  padding: 0 10px 26px;
-}
-
-.brand img {
-  display: block;
-  width: 196px;
-  height: auto;
-  object-fit: contain;
-}
-
-.brand > span {
-  display: block;
-  margin-top: -2px;
-  text-align: center;
-  color: #38bdf8;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.65px;
-}
-
-.closeButton {
-  display: none;
+.sidebar.collapsed {
+  transform: translateX(-100%);
 }
 
 .navigation {
@@ -77,6 +55,13 @@
   flex-shrink: 0;
 }
 
+.menuItem span,
+.logout span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .menuItem:hover {
   background: #1e293b;
   color: #f8fafc;
@@ -95,15 +80,8 @@
   border-top: 1px solid #1e293b;
 }
 
-.logout {
-  color: #f87171;
-  cursor: not-allowed;
-  opacity: 0.75;
-}
-
 @media (max-width: 767px) {
   .sidebar {
-    width: 240px;
     visibility: hidden;
     transform: translateX(-100%);
     transition: transform 180ms ease, visibility 180ms;
@@ -111,32 +89,10 @@
 
   .sidebar.open {
     visibility: visible;
+    transition-property: transform;
     transform: translateX(0);
   }
 
-  .brand {
-    padding-top: 28px;
-  }
-
-  .closeButton {
-    position: absolute;
-    top: -7px;
-    right: 0;
-    display: grid;
-    place-items: center;
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    border: 0;
-    border-radius: 6px;
-    background: transparent;
-    color: #cbd5e1;
-    cursor: pointer;
-  }
-
-  .closeButton:hover {
-    background: #1e293b;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

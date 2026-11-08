@@ -1,0 +1,97 @@
+.panel {
+  min-width: 0;
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 10px #0f172a14;
+}
+
+.panelHeading {
+  margin: 0 0 14px;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 12px;
+  padding: 12px;
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+  color: #475569;
+  font-size: 13px;
+}
+
+.pagination span {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pageButton {
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pageButton:hover:not(:disabled) {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+
+.pageButton:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.pageButton:disabled {
+  border-color: #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  cursor: default;
+}
+
+.rowActions {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.actionButton {
+  display: grid;
+  flex: 0 0 32px;
+  place-items: center;
+  height: 32px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.deleteAction {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.editAction {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.addAction {
+  background: #f0fdf4;
+  color: #166534;
+}

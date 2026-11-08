@@ -1,6 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
-import Sidebar from '../../components/layout/Sidebar/Sidebar.jsx'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import AdminHeader from '../../components/layout/AdminHeader/AdminHeader.jsx'
+import Sidebar, { MenuIcon } from '../../components/layout/Sidebar/Sidebar.jsx'
+import classNames from 'classnames/bind'
+import Blog from '../../pages/Blog/Blog.jsx'
+import Cinemas from '../../pages/Cinemas/Cinemas.jsx'
+import Movies from '../../pages/Movies/Movies.jsx'
+import People from '../../pages/People/People.jsx'
+import Users from '../../pages/Users/Users.jsx'
 import styles from './AdminLayout.module.css'
+
+const cx = classNames.bind(styles)
+
+// Tải Dashboard khi mở Tổng quan để trang khách không tải kèm thư viện biểu đồ.
+const Dashboard = lazy(() => import('../../pages/Dashboard/Dashboard.jsx'))
 
 const MENU_ITEMS = [
   { id: 'overview', label: 'Tổng quan' },
@@ -16,10 +28,14 @@ const MENU_ITEMS = [
 export default function AdminLayout() {
   const [selectedId, setSelectedId] = useState('overview')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isOn, setIsOn] = useState(false)
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 767px)').matches)
   const sidebarRef = useRef(null)
   const menuButtonRef = useRef(null)
   const selectedItem = MENU_ITEMS.find((item) => item.id === selectedId)
+
+  // Thêm mục con sau mục cha khi cần hiển thị đường dẫn nhiều cấp.
+  const breadcrumbItems = [selectedItem]
 
   useEffect(() => {
     const media = window.matchMedia('(max-width: 767px)')
@@ -38,7 +54,7 @@ export default function AdminLayout() {
     const menuButton = menuButtonRef.current
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    sidebar.querySelector('button:not(:disabled)')?.focus()
+    menuButton.focus()
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -48,7 +64,7 @@ export default function AdminLayout() {
       }
 
       if (event.key !== 'Tab') return
-      const buttons = Array.from(sidebar.querySelectorAll('button:not(:disabled)'))
+      const buttons = [menuButton, ...sidebar.querySelectorAll('button:not(:disabled)')]
       const first = buttons[0]
       const last = buttons[buttons.length - 1]
 
@@ -78,46 +94,74 @@ export default function AdminLayout() {
     setIsMenuOpen(false)
   }
 
+  const handleToggle = () => {
+    setIsOn(previous => !previous)
+  }
+
+  const isCollapsed = isOn && !isMobile
+
   return (
-    <div className={styles.layout}>
-      <a href="#admin-content" className={styles.skipLink}>Đến nội dung chính</a>
+    <div className={cx('layout', { collapsed: isCollapsed })}>
+      <a href="#admin-content" className={cx('skipLink')} inert={isMobile && isMenuOpen}>
+        Đến nội dung chính
+      </a>
+
+      <AdminHeader
+        menuButtonRef={menuButtonRef}
+        isMenuOpen={isMenuOpen}
+        onToggleMenu={() => setIsMenuOpen(previous => !previous)}
+        isOn={isCollapsed}
+        onToggle={handleToggle}
+      />
 
       {isMobile && isMenuOpen && (
-        <div className={styles.backdrop} onClick={() => setIsMenuOpen(false)} aria-hidden="true" />
+        <div className={cx('backdrop')} onClick={() => setIsMenuOpen(false)} aria-hidden="true" />
       )}
-
       <Sidebar
         items={MENU_ITEMS}
         selectedId={selectedId}
         onSelect={handleSelect}
         isMobile={isMobile}
         isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
+        isCollapsed={isCollapsed}
         sidebarRef={sidebarRef}
       />
 
-      <div className={styles.content} inert={isMobile && isMenuOpen}>
-        <header className={styles.mobileHeader}>
-          <button
-            ref={menuButtonRef}
-            type="button"
-            className={styles.menuButton}
-            onClick={() => setIsMenuOpen(true)}
-            aria-label="Mở menu quản trị"
-            aria-controls="admin-sidebar"
-            aria-expanded={isMenuOpen}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-              <path d="M4 6h16 M4 12h16 M4 18h16" />
-            </svg>
-          </button>
-          <span>TianMovie Admin</span>
-        </header>
-
-        <main id="admin-content" className={styles.main} tabIndex={-1}>
-          <p className={styles.eyebrow}>QUẢN TRỊ HỆ THỐNG</p>
-          <h1 aria-live="polite">{selectedItem.label}</h1>
+      <div className={cx('content')} inert={isMobile && isMenuOpen}>
+        <main id="admin-content" className={cx('main')} tabIndex={-1}>
+          <div className={cx('pageHeading')}>
+            <nav className={cx('breadcrumb')} aria-label="Đường dẫn quản trị">
+              <ol>
+                <li>
+                  <button type="button" onClick={() => handleSelect('overview')}>Home</button>
+                </li>
+                {breadcrumbItems.map((item, index) => (
+                  <li key={item.id}>
+                    <span className={cx('breadcrumbSeparator')} aria-hidden="true">&gt;</span>
+                    <span aria-current={index === breadcrumbItems.length - 1 ? 'page' : undefined}>
+                      {item.label}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+            <h1 className={cx('pageTitle')} aria-live="polite">
+              <span className={cx('pageIcon')} aria-hidden="true">
+                <MenuIcon name={selectedItem.id} />
+              </span>
+              {selectedItem.label}
+            </h1>
+          </div>
+          {selectedId === 'overview' && (
+            <Suspense fallback={<p>Đang tải tổng quan…</p>}>
+              <Dashboard />
+            </Suspense>
+          )}
+          {selectedId === 'users' && <Users />}
+          {selectedId === 'movies' && <Movies />}
+          {selectedId === 'people' && <People />}
+          {selectedId === 'cinemas' && <Cinemas />}
+          {selectedId === 'blog' && <Blog />}
         </main>
       </div>
     </div>

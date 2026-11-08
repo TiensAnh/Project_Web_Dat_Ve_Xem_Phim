@@ -1,8 +1,10 @@
-import logo from '../../../assets/Logo/Logo_darkTheme.png'
+import classNames from 'classnames/bind'
 import styles from './Sidebar.module.css'
 
+const cx = classNames.bind(styles)
+
 const ICON_PATHS = {
-  overview: 'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',
+  overview: 'M3 3h7v7H3z M14 3h 7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',
   users: 'M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6 M16 10a2.5 2.5 0 1 0 0-5 M3 20v-2a5 5 0 0 1 10 0v2z M16 14a4 4 0 0 1 5 4v2h-5',
   movies: 'M4 3h16v18H4z M8 3v18 M16 3v18 M4 8h4 M4 16h4 M16 8h4 M16 16h4',
   people: 'M12 3 3 7v6c0 4 5 7 9 8 4-1 9-4 9-8V7z M8 12l3 3 5-6',
@@ -13,7 +15,8 @@ const ICON_PATHS = {
   logout: 'M10 4H4v16h6 M14 8l4 4-4 4 M8 12h13',
 }
 
-function MenuIcon({ name }) {
+// Dùng cùng icon ở sidebar và tiêu đề của trang quản trị.
+export function MenuIcon({ name }) {
   return (
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -22,34 +25,22 @@ function MenuIcon({ name }) {
   )
 }
 
-export default function Sidebar({ items, selectedId, onSelect, isMobile, isOpen, onClose, sidebarRef }) {
+export default function Sidebar({ items, selectedId, onSelect, isMobile, isOpen, isCollapsed, sidebarRef }) {
   return (
     <aside
       id="admin-sidebar"
       ref={sidebarRef}
-      className={styles.sidebar + (isOpen ? ' ' + styles.open : '')}
-      role={isMobile ? 'dialog' : undefined}
-      aria-modal={isMobile && isOpen ? true : undefined}
+      className={cx('sidebar', { open: isOpen, collapsed: isCollapsed })}
       aria-label="Menu quản trị TianMovie"
-      inert={isMobile && !isOpen}
+      inert={isCollapsed || (isMobile && !isOpen)}
     >
-      <div className={styles.brand}>
-        <img src={logo} alt="TianMovie" width="196" height="65" />
-        <span>QUẢN TRỊ HỆ THỐNG</span>
-        <button className={styles.closeButton} type="button" onClick={onClose} aria-label="Đóng menu">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            <path d="m6 6 12 12 M18 6 6 18" />
-          </svg>
-        </button>
-      </div>
-
-      <nav className={styles.navigation} aria-label="Các mục quản trị">
+      <nav className={cx('navigation')} aria-label="Các mục quản trị">
         {items.map((item) => (
           <button
             key={item.id}
             type="button"
-            className={styles.menuItem + (selectedId === item.id ? ' ' + styles.active : '')}
+            className={cx('menuItem', { active: selectedId === item.id })}
+            aria-label={item.label}
             aria-current={selectedId === item.id ? 'page' : undefined}
             onClick={() => onSelect(item.id)}
           >
@@ -59,12 +50,7 @@ export default function Sidebar({ items, selectedId, onSelect, isMobile, isOpen,
         ))}
       </nav>
 
-      <div className={styles.footer} title="Đăng xuất sẽ khả dụng khi có đăng nhập">
-        <button type="button" className={styles.logout} disabled>
-          <MenuIcon name="logout" />
-          <span>Đăng xuất</span>
-        </button>
-      </div>
+      
     </aside>
   )
 }
