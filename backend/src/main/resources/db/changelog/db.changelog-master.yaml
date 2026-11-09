@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: 001-create-movie-tables.sql
+      relativeToChangelogFile: true
