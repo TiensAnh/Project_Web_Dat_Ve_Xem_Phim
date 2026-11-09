@@ -10,9 +10,6 @@ const PAGE_SIZE = 8
 function RowActions() {
   return (
     <div className={cx('rowActions')}>
-      <button type="button" className={cx('actionButton', 'addAction')} aria-label="Thêm" title="Thêm" disabled>
-        <i className={cx('fa-solid', 'fa-plus')} aria-hidden="true" />
-      </button>
       <button type="button" className={cx('actionButton', 'editAction')} aria-label="Sửa" title="Sửa" disabled>
         <i className={cx('fa-solid', 'fa-pen-to-square')} aria-hidden="true" />
       </button>
@@ -70,7 +67,13 @@ export default function AdminList({ title, columns, rows }) {
 
   return (
     <section className={cx('panel')} aria-labelledby={headingId}>
-      <h2 id={headingId} className={cx('panelHeading')}>{title}</h2>
+      <div className={cx('panelHeader')}>
+        <h2 id={headingId} className={cx('panelHeading')}>{title}</h2>
+        <button type="button" className={cx('addAction')} disabled>
+          <i className={cx('fa-solid', 'fa-plus')} aria-hidden="true" />
+          Thêm
+        </button>
+      </div>
       <DataTable
         label={title}
         columns={tableColumns}

@@ -7,8 +7,16 @@
   box-shadow: 0 4px 10px #0f172a14;
 }
 
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
 .panelHeading {
-  margin: 0 0 14px;
+  margin: 0;
   color: #111827;
   font-size: 16px;
   font-weight: 650;
@@ -92,6 +100,18 @@
 }
 
 .addAction {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
   background: #f0fdf4;
   color: #166534;
 }

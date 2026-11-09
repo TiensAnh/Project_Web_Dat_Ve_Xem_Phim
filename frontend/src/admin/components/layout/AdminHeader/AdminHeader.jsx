@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import logo from '../../../assets/Logo/Logo_darkTheme.png'
 import classNames from 'classnames/bind'
@@ -35,7 +36,7 @@ export default function AdminHeader({ menuButtonRef, isMenuOpen, onToggleMenu, i
   return (
     <header className={cx('header')}>
       <div className={cx('brand')}>
-        <a href='/admin'><img src={logo} alt="TianMovie" width="168" height="56" /></a>
+        <Link to="/admin/dashboard" onClick={isMenuOpen ? onToggleMenu : undefined}><img src={logo} alt="TianMovie" width="168" height="56" /></Link>
         <button
             type="button"
             role="switch"

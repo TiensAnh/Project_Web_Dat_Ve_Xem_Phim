@@ -1,3 +1,5 @@
+import { useId, useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './Sidebar.module.css'
 
@@ -9,6 +11,7 @@ const ICON_PATHS = {
   movies: 'M4 3h16v18H4z M8 3v18 M16 3v18 M4 8h4 M4 16h4 M16 8h4 M16 16h4',
   people: 'M12 3 3 7v6c0 4 5 7 9 8 4-1 9-4 9-8V7z M8 12l3 3 5-6',
   cinemas: 'M5 21V3h14v18 M3 21h18 M9 7h1 M14 7h1 M9 11h1 M14 11h1 M10 21v-6h4v6',
+  rooms: 'M4 4h16v12H4z M8 20h8 M12 16v4',
   screenings: 'M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z M7 2v5 M17 2v5 M3 10h18 M7 14h3 M14 14h3',
   seats: 'M7 13V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v8 M5 9a2 2 0 0 0-2 2v7h18v-7a2 2 0 0 0-4 0v3H7v-3a2 2 0 0 0-2-2 M6 18v3 M18 18v3',
   blog: 'M5 3h10l4 4v14H5z M14 3v5h5 M9 12h6 M9 16h6',
@@ -25,7 +28,55 @@ export function MenuIcon({ name }) {
   )
 }
 
-export default function Sidebar({ items, selectedId, onSelect, isMobile, isOpen, isCollapsed, sidebarRef }) {
+function SidebarLink({ item, onNavigate }) {
+  return (
+    <NavLink
+      to={'/admin/' + item.path}
+      className={({ isActive }) => cx('menuItem', { active: isActive })}
+      aria-label={item.label}
+      onClick={onNavigate}
+    >
+      <MenuIcon name={item.id} />
+      <span>{item.label}</span>
+    </NavLink>
+  )
+}
+
+function SidebarGroup({ item, active, onNavigate }) {
+  const contentId = useId()
+  const [expansion, setExpansion] = useState(true)
+
+function toggleGroup (){
+  const nextOpen = !expansion;
+  setExpansion(nextOpen)
+}
+  return (
+    <div className={cx('menuGroup')}>
+      <button
+        type="button"
+        className={cx('menuItem', { groupActive: active })}
+        aria-controls={contentId}
+        aria-expanded={expansion}
+        onClick={toggleGroup}
+      >
+        <MenuIcon name={item.icon} />
+        <span>{item.label}</span>
+        <svg className={cx('chevron', { rotated: expansion })} width="16" height="16"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+          strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="m9 6 6 6-6 6" />
+        </svg>
+      </button>
+      <div id={contentId} className={cx('subMenu', { expanded: expansion })} inert={!expansion}>
+        <div className={cx('subMenuLinks')}>
+          {item.children.map(child => <SidebarLink key={child.id} item={child} onNavigate={onNavigate} />)}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function Sidebar({ items, selectedItem, onNavigate, isMobile, isOpen, isCollapsed, sidebarRef }) {
   return (
     <aside
       id="admin-sidebar"
@@ -35,22 +86,12 @@ export default function Sidebar({ items, selectedId, onSelect, isMobile, isOpen,
       inert={isCollapsed || (isMobile && !isOpen)}
     >
       <nav className={cx('navigation')} aria-label="Các mục quản trị">
-        {items.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            className={cx('menuItem', { active: selectedId === item.id })}
-            aria-label={item.label}
-            aria-current={selectedId === item.id ? 'page' : undefined}
-            onClick={() => onSelect(item.id)}
-          >
-            <MenuIcon name={item.id} />
-            <span>{item.label}</span>
-          </button>
+        {items.map(item => item.children ? (
+          <SidebarGroup key={item.id} item={item} active={selectedItem.parent?.id === item.id} onNavigate={onNavigate} />
+        ) : (
+          <SidebarLink key={item.id} item={item} onNavigate={onNavigate} />
         ))}
       </nav>
-
-      
     </aside>
   )
 }

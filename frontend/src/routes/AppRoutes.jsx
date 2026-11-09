@@ -14,7 +14,7 @@ function AppRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/admin" element={<AdminApp />} />
+            <Route path="/admin/*" element={<AdminApp />} />
             <Route path="/lich-chieu" element={<ShowtimesPage />} />
             <Route path="/rap-chieu" element={<CinemasPage />} />
             <Route path="/rap-chieu/:brandId" element={<BrandPage />} />
