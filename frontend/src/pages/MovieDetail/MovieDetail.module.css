@@ -26,9 +26,9 @@
 }
 
 .container {
-    max-width: 1200px;
+    max-width: var(--public-content-max-width);
     margin: 0 auto;
-    padding: 0 24px;
+    padding-inline: var(--public-content-gutter);
 }
 
 .content-grid {
@@ -63,8 +63,4 @@
     }
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 0 16px;
-    }
-}
+@media (max-width: 768px) {}

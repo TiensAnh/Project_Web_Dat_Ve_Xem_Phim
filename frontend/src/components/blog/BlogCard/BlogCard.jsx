@@ -16,9 +16,12 @@ function BlogCard({ post }) {
         readTime,
         thumbnail,
         badge,
+        link,
+        views,
     } = post;
 
-    const postLink = `/blog/${slug || id}`;
+    const postLink = link || `/blog/${slug || id}`;
+    const postMeta = readTime || views;
 
     return (
         <article className={cx('blog-card')}>
@@ -42,8 +45,8 @@ function BlogCard({ post }) {
                     {category && (
                         <span className={cx('category-tag')}>{category}</span>
                     )}
-                    {readTime && (
-                        <span className={cx('read-time')}>{readTime}</span>
+                    {postMeta && (
+                        <span className={cx('read-time')}>{postMeta}</span>
                     )}
                 </div>
 

@@ -4,6 +4,18 @@
   box-sizing: border-box;
 }
 
+/* Chiều rộng và đệm ngang chung cho các khối nội dung của trang khách. */
+:root {
+  --public-content-max-width: 1200px;
+  --public-content-gutter: 26px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --public-content-gutter: 16px;
+  }
+}
+
 /* HTML */
 html {
   scroll-behavior: smooth;

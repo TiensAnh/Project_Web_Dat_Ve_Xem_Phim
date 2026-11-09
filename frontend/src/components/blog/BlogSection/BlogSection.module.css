@@ -1,13 +1,14 @@
 .blog-section {
     background-color: #f8fafc;
-    padding: 24px 20px 48px;
+    padding: 24px 0 48px;
     width: 100%;
     border-top: 1px solid #f1f5f9;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: var(--public-content-max-width);
     margin: 0 auto;
+    padding-inline: var(--public-content-gutter);
 }
 
 .header {

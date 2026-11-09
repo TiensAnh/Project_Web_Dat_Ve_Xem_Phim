@@ -9,10 +9,10 @@
     background: transparent;
 }
 .upComingMovie-container{
-    max-width: 1200px;
+    max-width: var(--public-content-max-width);
     display: block;
     margin:0 auto;
-    padding: 0px 26px;
+    padding: 0 var(--public-content-gutter);
 }
 .upComingMovie-wrapper-title {
     width:100%;
@@ -80,9 +80,6 @@
 @media (max-width: 768px) {
     .upComingMovie {
         padding: 24px 0px;
-    }
-    .upComingMovie-container {
-        padding: 0px 16px;
     }
     .upComingMovie-wrapper-title {
         margin-bottom: 24px;

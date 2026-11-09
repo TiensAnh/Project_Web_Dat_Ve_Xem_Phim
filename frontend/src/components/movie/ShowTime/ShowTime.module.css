@@ -3,9 +3,9 @@
     background-color:rgba(70, 129, 255, 0.053);
 }
 .ShowTime-container{
-    max-width: 1200px;
+    max-width: var(--public-content-max-width);
     margin:0 auto;
-    padding: 16px 4% 24px;
+    padding: 16px var(--public-content-gutter) 24px;
 }
 
 .ShowTime-container.no-more {
@@ -281,9 +281,7 @@
 }
 
 .detail-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px 24px;
+    padding-block: 24px;
 }
 
 .detail-header-row {
@@ -399,7 +397,7 @@
 
 @media (max-width: 768px) {
     .detail-container {
-        padding: 20px 16px;
+        padding-block: 20px;
     }
 
     .detail-header-row {
