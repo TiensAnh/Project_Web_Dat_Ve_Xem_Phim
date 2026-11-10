@@ -44,7 +44,7 @@ function SidebarLink({ item, onNavigate }) {
 
 function SidebarGroup({ item, active, onNavigate }) {
   const contentId = useId()
-  const [expansion, setExpansion] = useState(true)
+  const [expansion, setExpansion] = useState(false)
 
 function toggleGroup (){
   const nextOpen = !expansion;

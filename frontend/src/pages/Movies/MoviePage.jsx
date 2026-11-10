@@ -37,10 +37,10 @@ function MoviePage() {
                     themeBg={subHero.themeBg}
                 />
 
-                {/* Khối Phim đang chiếu và Phim sắp chiếu mang nguyên từ Home page */}
+                {/* Hiển thị hai dãy phim và ẩn liên kết tìm phim ở dãy phim sắp chiếu. */}
                 <div className={cx('movie-showcase')}>
                     <NowShowing />
-                    <UpComingMovie />
+                    <UpComingMovie showFindMoviesLink={false} />
                 </div>
 
                 {/* Khối tìm phim chiếu rạp và danh sách toàn bộ phim của dự án */}

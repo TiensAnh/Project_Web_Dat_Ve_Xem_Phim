@@ -8,7 +8,8 @@ const movieSlides = getUpcomingMovies();
 const color= {
     color:'black'
 }
-function UpComingMovie({ isDark = true, bgColor, textColor, titleColor }){
+// Hiển thị danh sách phim sắp chiếu.
+function UpComingMovie({ isDark = true, bgColor, textColor, titleColor, showFindMoviesLink = true }){
     const customStyle = {
         ...(bgColor ? { backgroundColor: bgColor } : {}),
         ...(textColor ? { '--upcoming-text-color': textColor } : {}),
@@ -28,9 +29,12 @@ function UpComingMovie({ isDark = true, bgColor, textColor, titleColor }){
                 <div className={cx('upComingMovie-movieList')}>
                     <MovieSlider color={color} movieSlides = {movieSlides}/>
                 </div>
-                <div className={cx('upComingMovie-moreMovie')}>
-                    <a href='/'>Tìm phim chiếu rạp</a>
-                </div>
+                {/* Chỉ hiện liên kết tìm phim khi trang cần dùng. */}
+                {showFindMoviesLink && (
+                    <div className={cx('upComingMovie-moreMovie')}>
+                        <a href='/'>Tìm phim chiếu rạp</a>
+                    </div>
+                )}
             </div>
             
             
