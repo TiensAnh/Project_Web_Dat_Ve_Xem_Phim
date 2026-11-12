@@ -19,24 +19,26 @@ function CardPhim({ movie }) {
 
     const {
         id,
+        slug,
         title,
-        name,
-        poster,
-        src,
-        genres,
-        genre,
-        ratingPoint,
-        rate,
+        englishTitle,
+        durationMinutes,
         ageRating,
+        posterUrl,
+        backdropUrl,
         trailerUrl,
-        link,
+        synopsis,
+        storyPlot,
+        highlightsUrlMovie,
+        releaseDateUrlMovie,
+        genres,
     } = movie;
 
-    const movieTitle = title || name || 'Chưa có tên';
-    const moviePoster = poster || src || '';
-    const movieLink = link || (id ? `/phim/${id}` : '#');
+    const movieTitle = title || 'Chưa có tên';
+    const moviePoster = posterUrl || '';
+    const movieLink =  (id ? `/phim/${id}` : '#');
     const displayGenres = Array.isArray(genres) ? genres.join(', ') : (genre || '');
-    const displayRating = ratingPoint ?? rate ?? null;
+    const displayRating = null;
     const badgeInfo = getAgeBadgeInfo(ageRating);
 
     return (

@@ -13,12 +13,12 @@ public record MovieResponse (
         String country,
         String status,
         String posterUrl,
-        String backdropUrl,
+        String backdropUrl,     
         String trailerUrl,
         String synopsis,
         String storyPlot,
         String highlightsUrlMovie,
-        LocalDate releaseDateUrlMovie,
+        LocalDate releaseDateMovie,
         List<String> genres
         ){
 }

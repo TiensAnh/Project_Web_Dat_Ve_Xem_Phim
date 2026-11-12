@@ -1,15 +1,74 @@
-import { useState, useMemo } from 'react';
+import { useState,useEffect, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import style from './AllMovies.module.css';
 import { ALL_MOVIES_FILTER_CONFIG } from '../../../data/moviePageData.js';
 import { ALL_MOVIES } from '../../../data/moviesData.js';
 import CardPhim from '../CardPhim/CardPhim.jsx';
+import {getMovies,getGenres} from '../../../services/movieService.js'
+import MovieInfo from '../../../pages/MovieDetail/components/MovieInfo/MovieInfo.jsx';
 
 const cx = classNames.bind(style);
 const ITEMS_PER_PAGE = 10;
 
+// Tách năm từ ngày phát hành 
+function getReleaseYear(releaseDateMovie){
+    if(!releaseDateMovie){
+        return null;
+    }
+    return releaseDateMovie.slice(0,4);
+}
+
 function AllMovies({ onFilterChange }) {
-    const { title, genres, countries, years } = ALL_MOVIES_FILTER_CONFIG;
+    // Hàm lấy dữ liệu movies từ api
+    const [movies, setMovies] = useState([]);
+    useEffect(function loadMovieOnMount(){
+        async function loadMovies() {
+            try{
+                const moviesList = await getMovies();
+                // chuẩn hoá lại conutry có thể sửa lại sau khi web đủ lớn 
+                for(const movie of moviesList){
+                    if(typeof movie.country !== 'string'){
+                        movie.country = null;
+                    }
+                }
+                setMovies(moviesList);
+            }
+            catch(err){
+                console.error('Không tải được danh sách phim ', err);
+            }
+        }
+        loadMovies();
+    },[])
+
+    // function lấy danh sách genres từ api
+    const [genres,setGenres] = useState([]);
+    useEffect (function loadGenresOnMount(){
+            async function loadGenres() {
+                try{
+                const genresList = await getGenres();
+                setGenres(genresList)
+                }
+                catch(err){
+                console.error("Không thể lấy danh sách genres từ API ",err)
+            }
+        }
+        loadGenres();
+    },[])
+    // logic lấy data country từ movies và gom thành 1 list
+    const uniqueCountries = new Set;
+    const uniqueYear = new Set;
+    for (const movie of movies ){
+        if(movie.country)
+            uniqueCountries.add(movie.country)
+        if(movie.releaseDateMovie){
+            uniqueYear.add(getReleaseYear(movie.releaseDateMovie))
+        }
+    }
+    const countries = Array.from(uniqueCountries); 
+    const releaseYear = Array.from(uniqueYear); 
+
+    // lấy data từ genres
+    const genreData = genres;
 
     // State lưu giá trị 3 bộ lọc
     const [selectedGenre, setSelectedGenre] = useState('all');
@@ -25,7 +84,7 @@ function AllMovies({ onFilterChange }) {
 
     // Lọc danh sách phim từ ALL_MOVIES có sẵn
     const filteredMovies = useMemo(() => {
-        return ALL_MOVIES.filter((movie) => {
+        return movies.filter((movie) => {
             // 1. Thể loại
             if (selectedGenre !== 'all') {
                 const target = selectedGenre.toLowerCase();
@@ -41,18 +100,18 @@ function AllMovies({ onFilterChange }) {
                 if (!isGenreMatched) return false;
             }
 
-            // 2. Quốc gia
+            // 2. Quốc gia 
             if (selectedCountry !== 'all') {
                 const targetCountry = selectedCountry.toLowerCase();
                 const movieCountry = (movie.country || '').toLowerCase();
-                if (!movieCountry.includes(targetCountry) && !targetCountry.includes(movieCountry)) {
+                if (targetCountry !== movieCountry ) {
                     return false;
                 }
             }
 
             // 3. Năm phát hành
             if (selectedYear !== 'all') {
-                if (String(movie.year) !== String(selectedYear)) {
+                if (String(getReleaseYear(movie.releaseDateMovie)) !== String(selectedYear)) {
                     return false;
                 }
             }
@@ -67,7 +126,7 @@ function AllMovies({ onFilterChange }) {
 
             return true;
         });
-    }, [selectedGenre, selectedCountry, selectedYear, activeSearch]);
+    }, [movies,selectedGenre, selectedCountry, selectedYear, activeSearch]);
 
     // Tính toán phân trang
     const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE) || 1;
@@ -152,6 +211,13 @@ function AllMovies({ onFilterChange }) {
         }
     };
 
+    // Kiểm tra có bộ lọc hoặc từ khóa đang áp dụng.
+    const hasActiveFilters =
+        selectedGenre !== 'all' ||
+        selectedCountry !== 'all' ||
+        selectedYear !== 'all' ||
+        activeSearch !== '';
+
     // Đặt lại toàn bộ bộ lọc
     const handleResetFilters = () => {
         setSelectedGenre('all');
@@ -177,7 +243,7 @@ function AllMovies({ onFilterChange }) {
                 <div className={cx('header-bar')}>
                     {/* Tiêu đề căn lề sang bên trái */}
                     <div className={cx('title-wrapper')}>
-                        <h2 className={cx('title')}>{title}</h2>
+                        <h2 className={cx('title')}>Tất cả phim</h2>
                     </div>
 
                     {/* Cụm bộ lọc 3 tiêu chí và thanh tìm kiếm bên phải */}
@@ -190,9 +256,10 @@ function AllMovies({ onFilterChange }) {
                                 className={cx('filter-select')}
                                 aria-label="Lọc theo thể loại"
                             >
-                                {genres.map((g) => (
-                                    <option key={g.value} value={g.value}>
-                                        {g.label}
+                                <option value = 'all'>Chọn thể loại</option>
+                                {genreData.map((g) => (
+                                    <option key={g.id} value={g.name}>
+                                        {g.name}
                                     </option>
                                 ))}
                             </select>
@@ -200,16 +267,17 @@ function AllMovies({ onFilterChange }) {
                         </div>
 
                         {/* 2. Bộ lọc Quốc gia */}
-                        <div className={cx('select-box')}>
+                        <div className={cx('select-box')}>  
                             <select
                                 value={selectedCountry}
                                 onChange={handleCountryChange}
                                 className={cx('filter-select')}
                                 aria-label="Lọc theo quốc gia"
                             >
+                                <option value={'all'}>Chọn quốc gia</option>
                                 {countries.map((c) => (
-                                    <option key={c.value} value={c.value}>
-                                        {c.label}
+                                    <option key={c} value={c}>
+                                        {c}
                                     </option>
                                 ))}
                             </select>
@@ -224,9 +292,10 @@ function AllMovies({ onFilterChange }) {
                                 className={cx('filter-select')}
                                 aria-label="Lọc theo năm phát hành"
                             >
-                                {years.map((y) => (
-                                    <option key={y.value} value={y.value}>
-                                        {y.label}
+                                <option value={'all'}>Chọn năm phát hành</option>
+                                {releaseYear.map((y) => (
+                                    <option key={y} value={y}>
+                                        {y}
                                     </option>
                                 ))}
                             </select>
@@ -328,13 +397,15 @@ function AllMovies({ onFilterChange }) {
                         <p className={cx('empty-desc')}>
                             Vui lòng thử lại với từ khóa khác hoặc xóa bớt tiêu chí lọc thể loại, quốc gia, năm.
                         </p>
-                        <button
+                        {hasActiveFilters &&(
+                            <button
                             type="button"
-                            className={cx('empty-reset-btn')}
+                            className={cx(`empty-reset-btn`)}
                             onClick={handleResetFilters}
-                        >
+                            >
                             Đặt lại bộ lọc
-                        </button>
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
