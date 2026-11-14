@@ -1,5 +1,6 @@
 package com.example.backend.repository;
 
+import java.lang.management.MonitorInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
@@ -23,8 +24,8 @@ public class MovieRepository {
     }
 
     // Hàm lấy danh sách movies
-    public List<MovieResponse> findALlTitle(){
-            String sql_query =  """
+    public List<MovieResponse> findAllTitle() {
+        String sql_query = """
                 SELECT m.id, m.slug, m.title, m.english_title, m.duration_minutes,
                        m.age_rating, m.country, m.status, m.poster_url, m.backdrop_url,
                        m.trailer_url, m.synopsis, m.story_plot, m.highlights, m.release_date,
@@ -35,10 +36,30 @@ public class MovieRepository {
                 GROUP BY m.id
                 ORDER BY m.id
                 """;
-            RowMapper<MovieResponse> movieResponseRowMapper = this::mapMovieRow;
+        RowMapper<MovieResponse> movieResponseRowMapper = this::mapMovieRow;
 
-            List<MovieResponse> movies = jdbcTemplate.query(sql_query,movieResponseRowMapper);
-            return movies;
+        List<MovieResponse> movies = jdbcTemplate.query(sql_query, movieResponseRowMapper);
+        return movies;
+    }
+
+    // Hàm lấy dữ liệu của 1 phim theo id
+    public List<MovieResponse> findIdMovie (long id){
+        String sql = """
+                SELECT m.id, m.slug, m.title, m.english_title, m.duration_minutes,
+                       m.age_rating, m.country, m.status, m.poster_url, m.backdrop_url,
+                       m.trailer_url, m.synopsis, m.story_plot, m.highlights, m.release_date,
+                       STRING_AGG(g.name, ',') AS genre_names
+                FROM movies m
+                LEFT JOIN movie_genres mg ON m.id = mg.movie_id
+                LEFT JOIN genres g ON mg.genre_id = g.id
+                WHERE m.id = ?
+                GROUP BY m.id
+                ORDER BY m.id
+                """;
+        RowMapper<MovieResponse> movieIdResponseRowMapper= this::mapMovieRow;
+        List<MovieResponse> movie= jdbcTemplate.query(sql,movieIdResponseRowMapper,id);
+
+        return movie;
     }
 
     // Ham lay du lieu tu bang tra ve
