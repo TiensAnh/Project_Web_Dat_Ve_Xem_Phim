@@ -9,6 +9,7 @@ Cập nhật ngày 14/11/2026
 - [ ] **T1.1 — Tạo API lấy chi tiết phim theo ID** · `feature` · ~2–3 giờ
   - Thêm `GET /api/movies/{id}` để đọc thông tin phim và thể loại từ DB.
   - Phụ thuộc dữ liệu phim và thể loại hiện có.
+  - Đã triển khai endpoint và xử lý `MOVIE_NOT_FOUND` trong code. Chờ xác nhận hai phản hồi HTTP bên dưới khi chạy backend.
   - [ ] ID có trong DB trả `200` và dữ liệu của đúng phim.
   - [ ] ID hợp lệ nhưng không tồn tại trả `404`.
 
