@@ -6,12 +6,11 @@ Cập nhật ngày 14/11/2026
 
 ## Task theo thứ tự làm
 
-- [ ] **T1.1 — Tạo API lấy chi tiết phim theo ID** · `feature` · ~2–3 giờ
+- [x] **T1.1 — Tạo API lấy chi tiết phim theo ID** · `feature` · ~2–3 giờ
   - Thêm `GET /api/movies/{id}` để đọc thông tin phim và thể loại từ DB.
   - Phụ thuộc dữ liệu phim và thể loại hiện có.
-  - Đã triển khai endpoint và xử lý `MOVIE_NOT_FOUND` trong code. Chờ xác nhận hai phản hồi HTTP bên dưới khi chạy backend.
-  - [ ] ID có trong DB trả `200` và dữ liệu của đúng phim.
-  - [ ] ID hợp lệ nhưng không tồn tại trả `404`.
+  - [x] ID có trong DB trả `200` và dữ liệu của đúng phim.
+  - [x] ID hợp lệ nhưng không tồn tại trả `404`.
 
 - [ ] **T1.2 — Nối API vào trang Chi tiết phim** · `feature` · ~2–3 giờ
   - Dùng API chi tiết để tải phim theo ID trên route `/phim/:id`.
