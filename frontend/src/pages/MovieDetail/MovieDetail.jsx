@@ -9,13 +9,12 @@ import MovieInfo from './components/MovieInfo/MovieInfo.jsx';
 import MovieReviews from './components/MovieReviews/MovieReviews.jsx';
 import MovieFAQ from './components/MovieFAQ/MovieFAQ.jsx';
 import NowShowingSidebar from './components/NowShowingSidebar/NowShowingSidebar.jsx';
-import { MOCK_TRAI_BUON_NGUOI } from './mockMovieDetail.js';
 
 const cx = classNames.bind(style);
 
 function MovieDetail({ movieData }) {
     // Nếu có truyền prop movieData thì dùng, ngược lại dùng mock data mặc định
-    const movie = movieData || MOCK_TRAI_BUON_NGUOI;
+    const movie =  movieData;
     const themeBg = movie.themeColor || '#111827';
 
     return (

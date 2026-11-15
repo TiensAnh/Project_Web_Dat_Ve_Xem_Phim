@@ -10,6 +10,23 @@ export async function getMovies() {
         return data;
 }
 
+// API lấy movie theo id 
+
+export async function getMovieById(id) {
+    const response = await fetch(`/api/movies/${id}`)
+    // Giữ mã HTTP để trang chi tiết nhận diện lỗi 404.
+    if (response.status === 404) {
+        const error = new Error("Không tìm thấy phim");
+        error.status = response.status;
+        throw error;
+    }
+    if(!response.ok){
+        throw new Error(`Server báo lỗi: ${response.status}`)
+    }
+    const data = await response.json()
+    return data
+}
+
 // Api lấy danh sách thể loại từ api 
 
 export async function getGenres() {
@@ -20,3 +37,4 @@ export async function getGenres() {
     const data = await response.json();
     return data
 }
+
