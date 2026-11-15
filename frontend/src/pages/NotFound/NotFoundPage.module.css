@@ -1,0 +1,43 @@
+/* Căn giữa nội dung trang 404. */
+.page {
+    display: grid;
+    min-height: 100vh;
+    min-height: 100dvh;
+    place-items: center;
+    padding: 32px 24px;
+    background: #111827;
+    color: #f9fafb;
+    text-align: center;
+}
+
+.content {
+    max-width: 540px;
+}
+
+/* Làm nổi bật mã lỗi và hướng quay lại. */
+.code {
+    margin: 0 0 12px;
+    color: #93c5fd;
+    font-size: clamp(72px, 15vw, 144px);
+    font-weight: 800;
+    line-height: 1;
+}
+
+.description {
+    margin: 16px 0 28px;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.homeLink {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #1d4ed8;
+    color: #fff;
+    text-decoration: none;
+}
+
+.homeLink:hover {
+    background: #1e40af;
+}

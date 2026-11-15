@@ -1,3 +1,4 @@
+// Khai báo các tuyến đường của ứng dụng.
 import { Routes, Route } from 'react-router-dom';
 import AdminApp from '../admin/AdminApp.jsx';
 import Home from '../pages/Home/Home.jsx';
@@ -9,6 +10,7 @@ import CinemaDetailPage from '../pages/CinemaDetail/CinemaDetailPage.jsx';
 import MoviePage from '../pages/Movies/MoviePage.jsx';
 import BlogPage from '../pages/Blog/BlogPage.jsx';
 import BlogDetailPage from '../pages/BlogDetail/BlogDetailPage.jsx';
+import NotFoundPage from '../pages/NotFound/NotFoundPage.jsx';
 
 function AppRoutes() {
     return (
@@ -27,7 +29,8 @@ function AppRoutes() {
             <Route path="/phim/:id" element={<MovieDetailPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogDetailPage />} />   
-            <Route path="*" element={<Home />} />
+            {/* Hiển thị trang 404 cho URL không khớp tuyến đường. */}
+            <Route path="*" element={<NotFoundPage />} />
             
         </Routes>
     );

@@ -26,7 +26,7 @@ public class MovieRepository {
     // Hàm lấy danh sách movies
     public List<MovieResponse> findAllTitle() {
         String sql_query = """
-                SELECT m.id, m.slug, m.title, m.english_title, m.duration_minutes,
+                SELECT m.id, m.slug, m.title, m.sub_title, m.duration_minutes,
                        m.age_rating, m.country, m.status, m.poster_url, m.backdrop_url,
                        m.trailer_url, m.synopsis, m.story_plot, m.highlights, m.release_date,
                        STRING_AGG(g.name, ',') AS genre_names
@@ -45,7 +45,7 @@ public class MovieRepository {
     // Hàm lấy dữ liệu của 1 phim theo id
     public List<MovieResponse> findIdMovie (long id){
         String sql = """
-                SELECT m.id, m.slug, m.title, m.english_title, m.duration_minutes,
+                SELECT m.id, m.slug, m.title, m.sub_title, m.duration_minutes,
                        m.age_rating, m.country, m.status, m.poster_url, m.backdrop_url,
                        m.trailer_url, m.synopsis, m.story_plot, m.highlights, m.release_date,
                        STRING_AGG(g.name, ',') AS genre_names
@@ -68,7 +68,7 @@ public class MovieRepository {
         long idMovie = resultSet.getLong("id");
         String slugMovie = resultSet.getString("slug");
         String titleMovie = resultSet.getString("title");
-        String englishTitleMovie = resultSet.getString("english_title");
+        String subTitleMovie = resultSet.getString("sub_title");
         int durationMinutesMovie = resultSet.getInt("duration_minutes");
         String ageRatingMovie = resultSet.getString("age_rating");
         String countryMovie = resultSet.getString("country");
@@ -93,7 +93,7 @@ public class MovieRepository {
         return new MovieResponse(idMovie,
                 slugMovie,
                 titleMovie,
-                englishTitleMovie,
+                subTitleMovie,
                 durationMinutesMovie,
                 ageRatingMovie,
                 countryMovie,

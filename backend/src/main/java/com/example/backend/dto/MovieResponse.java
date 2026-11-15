@@ -7,7 +7,7 @@ public record MovieResponse (
         long id,
         String slug,
         String title,
-        String englishTitle,
+        String subTitle,
         int durationMinutes,
         String ageRating,
         String country,

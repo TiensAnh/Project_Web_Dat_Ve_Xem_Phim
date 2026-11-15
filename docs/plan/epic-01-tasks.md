@@ -1,6 +1,6 @@
 # Epic 01 — Danh mục phim
 
-Cập nhật ngày 14/11/2026
+Cập nhật ngày 15/11/2026
 
 [Danh sách epic](epics.md)
 
@@ -12,11 +12,11 @@ Cập nhật ngày 14/11/2026
   - [x] ID có trong DB trả `200` và dữ liệu của đúng phim.
   - [x] ID hợp lệ nhưng không tồn tại trả `404`.
 
-- [ ] **T1.2 — Nối API vào trang Chi tiết phim** · `feature` · ~2–3 giờ
+- [x] **T1.2 — Nối API vào trang Chi tiết phim** · `feature` · ~2–3 giờ
   - Dùng API chi tiết để tải phim theo ID trên route `/phim/:id`.
   - Phụ thuộc **T1.1**.
-  - [ ] Bấm phim từ trang **Tất cả phim** hoặc mở URL trực tiếp đều hiển thị đúng phim từ DB.
-  - [ ] Trang có trạng thái riêng khi đang tải, khi nhận `404` và khi API lỗi.
+  - [x] Bấm phim từ trang **Tất cả phim** hoặc mở URL trực tiếp đều hiển thị đúng phim từ DB.
+  - [x] Trang có trạng thái riêng khi đang tải, khi nhận `404` và khi API lỗi.
 
 - [ ] **T1.3 — Hoàn thiện trạng thái trang Tất cả phim** · `feature` · ~2–3 giờ
   - Dùng hai API hiện có và bổ sung phản hồi khi tải phim hoặc thể loại.
