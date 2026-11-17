@@ -257,6 +257,12 @@
     border: 1px dashed #bfdbfe;
 }
 
+.error-icon-wrap {
+    background-color: #fef2f2;
+    color: #ef4444;
+    border-color: #fecaca;
+}
+
 .empty-title {
     font-size: 18px;
     font-weight: 700;

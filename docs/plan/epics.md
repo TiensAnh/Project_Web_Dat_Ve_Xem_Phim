@@ -1,10 +1,27 @@
 # Kế hoạch TianMovie
 
-Cập nhật ngày 14/11/2026
+Cập nhật ngày 17/11/2026
 
 ## Phạm vi bản đầu
 
 Khách xem phim, tra lịch chiếu, chọn ghế và nhận xác nhận đặt vé qua thanh toán giả lập. Admin cấu hình dữ liệu và tra cứu đơn. Các epic mở rộng sẽ được bổ sung khi chủ dự án yêu cầu.
+
+## Định hướng kiểm thử Backend
+
+Phân loại mức độ kiểm thử khi bóc tách task cho từng Epic:
+
+- **Bắt buộc viết test tự động (Nghiệp vụ phức tạp / Concurrency / Tiền bạc):**
+  - **Epic 05:** Test chặn trùng khung giờ chiếu trong cùng một phòng.
+  - **Epic 06:** Test tranh chấp giữ ghế đồng thời (concurrency) và cơ chế tự động nhả ghế khi hết hạn.
+  - **Epic 07:** Test tính toàn vẹn và idempotency (không tạo trùng vé khi xử lý callback thanh toán nhiều lần).
+- **Nên có test (Bảo mật & Logic sinh dữ liệu):**
+  - **Epic 02:** Test xác thực và phân quyền (chặn tài khoản thường gọi API admin).
+  - **Epic 04:** Test logic sinh ma trận ghế theo cấu hình phòng chiếu.
+  - **Epic 08:** Test quyền xem vé cá nhân (không xem được vé của tài khoản khác).
+- **Linh hoạt (CRUD cơ bản / MVP):**
+  - **Epic 01, Epic 03:** Kiểm tra qua UI, Postman hoặc viết test API cơ bản để tối ưu tiến độ.
+- **Kiểm thử toàn diện (E2E):**
+  - **Epic 09:** Chạy kiểm thử tích hợp toàn bộ luồng từ đầu đến cuối.
 
 ## Danh sách epic theo thứ tự làm
 
