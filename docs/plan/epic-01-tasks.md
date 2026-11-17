@@ -24,10 +24,10 @@ Cập nhật ngày 17/11/2026
   - [x] Có thông báo đang tải trong lúc chờ dữ liệu.
   - [x] Phân biệt danh sách rỗng, bộ lọc không có kết quả và lỗi tải phim hoặc thể loại.
 
-- [ ] **T1.4 — Kiểm tra luồng danh mục phim với dữ liệu thật** · `chore` · ~1 giờ
+- [x] **T1.4 — Kiểm tra luồng danh mục phim với dữ liệu thật** · `chore` · ~1 giờ
   - Kiểm tra luồng danh mục phim từ danh sách đến chi tiết.
   - Phụ thuộc **T1.2** và **T1.3**.
-  - [ ] Mở danh sách, lọc theo thể loại, bấm vào một phim và xác nhận trang chi tiết khớp phim đã chọn.
-  - [ ] Kiểm tra lại các trường hợp danh sách rỗng, ID không tồn tại và API lỗi. Ghi issue cho lỗi còn tái hiện được.
+  - [x] Mở danh sách, lọc theo thể loại, bấm vào một phim và xác nhận trang chi tiết khớp phim đã chọn.
+  - [x] Kiểm tra lại các trường hợp danh sách rỗng, ID không tồn tại và API lỗi. Ghi issue cho lỗi còn tái hiện được.
 
 Giữ nguyên mã task khi đổi thứ tự hoặc ước lượng. Đánh dấu `[x]` khi checklist của task đã đạt. Với task tính năng, ưu tiên một lát cắt chạy được qua DB, API và UI. Task chỉ liên quan một tầng hoặc tài liệu có thể giữ phạm vi tương ứng.

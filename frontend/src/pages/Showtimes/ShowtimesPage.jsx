@@ -8,7 +8,10 @@ import ShowTime from '../../components/movie/ShowTime/ShowTime.jsx';
 import UpComingMovie from '../../components/movie/UpComingMovies/UpComingMovie.jsx';
 import BlogSection from '../../components/blog/BlogSection/BlogSection.jsx';
 import ScrollToTop from '../../components/common/ScrollToTop.jsx';
-import heroImage from '../../assets/images/subpage-hero-cinema.png';
+
+
+
+const heroBannerImage = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500852/subpage-hero-cinema';
 
 const cx = classNames.bind(style);
 
@@ -41,7 +44,7 @@ function ShowtimesPage() {
                     title="Lịch Chiếu Phim Rạp Mới Nhất"
                     description="Rạp chiếu phim không chỉ mang đến những bộ phim bom tấn mới nhất mà còn trang bị tiện nghi hiện đại, ghế ngồi êm ái cùng hệ thống âm thanh vòm sống động bậc nhất."
                     features={heroFeatures}
-                    image={heroImage}
+                    image={heroBannerImage}
                     themeBg="#111827"
                 />
 

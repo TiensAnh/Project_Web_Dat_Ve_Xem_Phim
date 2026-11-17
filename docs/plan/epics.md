@@ -37,6 +37,7 @@ Phân loại mức độ kiểm thử khi bóc tách task cho từng Epic:
 - **Mục tiêu** — Khách có tài khoản và các thao tác quản trị được kiểm soát theo quyền.
 - **Xong khi** — Khách đăng ký, đăng nhập và đăng xuất được. Backend từ chối truy cập API quản trị khi tài khoản thiếu quyền.
 - **Phụ thuộc** — Không có.
+- **Task** — [Danh sách task của Epic 02](epic-02-tasks.md).
 
 ### Epic 03 — Quản trị phim và thể loại
 

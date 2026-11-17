@@ -26,7 +26,7 @@
         rgba(0, 0, 0, 0.2) 220px,
         rgba(0, 0, 0, 0.15) 50%,
         rgba(0, 0, 0, 0.65) 100%
-    ), url('../../assets/movieShow.jpeg');
+    ), url('https://res.cloudinary.com/uhqycyi3/image/upload/v1794502719/movieShow.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
