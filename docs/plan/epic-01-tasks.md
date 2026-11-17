@@ -1,6 +1,6 @@
 # Epic 01 — Danh mục phim
 
-Cập nhật ngày 15/11/2026
+Cập nhật ngày 17/11/2026
 
 [Danh sách epic](epics.md)
 
@@ -18,11 +18,11 @@ Cập nhật ngày 15/11/2026
   - [x] Bấm phim từ trang **Tất cả phim** hoặc mở URL trực tiếp đều hiển thị đúng phim từ DB.
   - [x] Trang có trạng thái riêng khi đang tải, khi nhận `404` và khi API lỗi.
 
-- [ ] **T1.3 — Hoàn thiện trạng thái trang Tất cả phim** · `feature` · ~2–3 giờ
+- [x] **T1.3 — Hoàn thiện trạng thái trang Tất cả phim** · `feature` · ~2–3 giờ
   - Dùng hai API hiện có và bổ sung phản hồi khi tải phim hoặc thể loại.
   - Có thể làm song song với **T1.1–T1.2**.
-  - [ ] Có thông báo đang tải trong lúc chờ dữ liệu.
-  - [ ] Phân biệt danh sách rỗng, bộ lọc không có kết quả và lỗi tải phim hoặc thể loại.
+  - [x] Có thông báo đang tải trong lúc chờ dữ liệu.
+  - [x] Phân biệt danh sách rỗng, bộ lọc không có kết quả và lỗi tải phim hoặc thể loại.
 
 - [ ] **T1.4 — Kiểm tra luồng danh mục phim với dữ liệu thật** · `chore` · ~1 giờ
   - Kiểm tra luồng danh mục phim từ danh sách đến chi tiết.

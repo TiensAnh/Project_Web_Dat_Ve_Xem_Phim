@@ -1,11 +1,9 @@
 import { useState,useEffect, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import style from './AllMovies.module.css';
-import { ALL_MOVIES_FILTER_CONFIG } from '../../../data/moviePageData.js';
-import { ALL_MOVIES } from '../../../data/moviesData.js';
 import CardPhim from '../CardPhim/CardPhim.jsx';
-import {getMovies,getGenres} from '../../../services/movieService.js'
-import MovieInfo from '../../../pages/MovieDetail/components/MovieInfo/MovieInfo.jsx';
+import { getMovies, getGenres } from '../../../services/movieService.js';
+import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner.jsx';
 
 const cx = classNames.bind(style);
 const ITEMS_PER_PAGE = 10;
@@ -19,28 +17,36 @@ function getReleaseYear(releaseDateMovie){
 }
 
 function AllMovies({ onFilterChange }) {
-    // Hàm lấy dữ liệu movies từ api
+    // Quản lý trạng thái tải dữ liệu, lỗi và danh sách phim
+    const [isLoading, setIsLoading] = useState(true);
+    const [errol, setErrol] = useState(null);
     const [movies, setMovies] = useState([]);
-    useEffect(function loadMovieOnMount(){
+    useEffect(function loadMovieOnMount() {
+        // Tải danh sách phim từ API
         async function loadMovies() {
-            try{
+            setIsLoading(true);
+            setErrol(null);
+            try {   
                 const moviesList = await getMovies();
-                // chuẩn hoá lại conutry có thể sửa lại sau khi web đủ lớn 
-                for(const movie of moviesList){
-                    if(typeof movie.country !== 'string'){
+                // Chuẩn hoá lại country nếu không phải chuỗi
+                for (const movie of moviesList) {
+                    if (typeof movie.country !== 'string') {
                         movie.country = null;
                     }
                 }
                 setMovies(moviesList);
-            }
-            catch(err){
+            } catch (err) {
                 console.error('Không tải được danh sách phim ', err);
+                setErrol(err);
+            } finally {
+                setIsLoading(false);
             }
         }
         loadMovies();
-    },[])
+    }, []);
 
     // function lấy danh sách genres từ api
+    const [genreError, setGenreError] = useState(null);
     const [genres,setGenres] = useState([]);
     useEffect (function loadGenresOnMount(){
             async function loadGenres() {
@@ -50,10 +56,12 @@ function AllMovies({ onFilterChange }) {
                 }
                 catch(err){
                 console.error("Không thể lấy danh sách genres từ API ",err)
+                setGenreError(err);
             }
         }
         loadGenres();
     },[])
+    
     // logic lấy data country từ movies và gom thành 1 list
     const uniqueCountries = new Set;
     const uniqueYear = new Set;
@@ -236,6 +244,127 @@ function AllMovies({ onFilterChange }) {
         }
     };
 
+    // Biến chứa nội dung giao diện danh sách phim theo từng trạng thái
+    let movieContent;
+
+    // 1. Trạng thái đang tải dữ liệu từ API
+    if (isLoading) {
+        movieContent = <LoadingSpinner text="Đang tải danh sách phim..." />;
+    }
+    // 2. Trạng thái lỗi kết nối API
+    else if (errol) {
+        movieContent = (
+            <div className={cx('empty-state')}>
+                <div className={cx('empty-icon-wrap', 'error-icon-wrap')}>
+                    <i className="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 className={cx('empty-title')}>Không thể tải danh sách phim</h3>
+                <p className={cx('empty-desc')}>
+                    Đã xảy ra lỗi khi kết nối tới máy chủ. Vui lòng kiểm tra lại kết nối hoặc thử lại sau.
+                </p>
+            </div>
+        );
+    }
+    // 3. Trạng thái cơ sở dữ liệu chưa có phim nào
+    else if (movies.length === 0) {
+        movieContent = (
+            <div className={cx('empty-state')}>
+                <div className={cx('empty-icon-wrap')}>
+                    <i className="fa-solid fa-film"></i>
+                </div>
+                <h3 className={cx('empty-title')}>Chưa có bộ phim nào</h3>
+                <p className={cx('empty-desc')}>
+                    Hệ thống hiện chưa có dữ liệu phim. Vui lòng quay lại sau.
+                </p>
+            </div>
+        );
+    }
+    // 4. Trạng thái có phim phù hợp bộ lọc
+    else if (filteredMovies.length > 0) {
+        movieContent = (
+            <>
+                <div className={cx('movies-grid')}>
+                    {currentMovies.map((movie) => (
+                        <CardPhim key={movie.id} movie={movie} />
+                    ))}
+                </div>
+
+                {/* Thanh phân trang Pagination nếu có nhiều hơn 1 trang */}
+                {totalPages > 1 && (
+                    <div className={cx('pagination')}>
+                        <button
+                            type="button"
+                            className={cx('page-arrow', { disabled: currentPage === 1 })}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            aria-label="Trang trước"
+                        >
+                            <i className="fa-solid fa-chevron-left"></i>
+                        </button>
+
+                        {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNum) => (
+                            <button
+                                key={pageNum}
+                                type="button"
+                                className={cx('page-num', { active: pageNum === currentPage })}
+                                onClick={() => handlePageChange(pageNum)}
+                            >
+                                {pageNum}
+                            </button>
+                        ))}
+
+                        <button
+                            type="button"
+                            className={cx('page-arrow', { disabled: currentPage === totalPages })}
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            aria-label="Trang tiếp"
+                        >
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                )}
+            </>
+        );
+    }
+    // 5. Trạng thái bộ lọc không tìm thấy kết quả nào
+    else {
+        movieContent = (
+            <div className={cx('empty-state')}>
+                <div className={cx('empty-icon-wrap')}>
+                    <i className="fa-solid fa-film"></i>
+                </div>
+                <h3 className={cx('empty-title')}>Không tìm thấy bộ phim phù hợp</h3>
+                <p className={cx('empty-desc')}>
+                    Vui lòng thử lại với từ khóa khác hoặc xóa bớt tiêu chí lọc thể loại, quốc gia, năm.
+                </p>
+                {hasActiveFilters && (
+                    <button
+                        type="button"
+                        className={cx('empty-reset-btn')}
+                        onClick={handleResetFilters}
+                    >
+                        Đặt lại bộ lọc
+                    </button>
+                )}
+            </div>
+        );
+    }
+
+    // thêm thông báo lỗi khi không thể nối tới api genres
+    let genreOptions 
+    if (genreError) {
+        genreOptions = <option disabled>Không tải được thể loại</option>;
+    } 
+    // Nếu tải thành công thì map danh sách thể loại
+    else {
+        genreOptions = genreData.map((g) => (
+            <option key={g.id} value={g.name}>
+                {g.name}
+            </option>
+        ));
+    }
+
     return (
         <section className={cx('all-movies-section')} id="all-movies-content">
             <div className={cx('container')}>
@@ -257,11 +386,7 @@ function AllMovies({ onFilterChange }) {
                                 aria-label="Lọc theo thể loại"
                             >
                                 <option value = 'all'>Chọn thể loại</option>
-                                {genreData.map((g) => (
-                                    <option key={g.id} value={g.name}>
-                                        {g.name}
-                                    </option>
-                                ))}
+                                {genreOptions}  
                             </select>
                             <i className={cx('fa-solid fa-chevron-down', 'select-arrow')}></i>
                         </div>
@@ -326,8 +451,8 @@ function AllMovies({ onFilterChange }) {
                     </div>
                 </div>
 
-                {/* Vùng hiển thị số lượng kết quả (nếu đang lọc hoặc tìm kiếm) */}
-                {(selectedGenre !== 'all' || selectedCountry !== 'all' || selectedYear !== 'all' || activeSearch) && (
+                {/* Vùng hiển thị số lượng kết quả (chỉ hiển thị khi đã tải xong và đang lọc hoặc tìm kiếm) */}
+                {(selectedGenre !== 'all' || selectedCountry !== 'all' || selectedYear !== 'all' || activeSearch) && !isLoading && !errol && (
                     <div className={cx('filter-feedback')}>
                         <span className={cx('feedback-text')}>
                             Tìm thấy <strong>{filteredMovies.length}</strong> bộ phim phù hợp
@@ -342,72 +467,8 @@ function AllMovies({ onFilterChange }) {
                     </div>
                 )}
 
-                {/* Vùng Lưới phim (Movie Grid) hoặc Empty State */}
-                {filteredMovies.length > 0 ? (
-                    <>
-                        <div className={cx('movies-grid')}>
-                            {currentMovies.map((movie) => (
-                                <CardPhim key={movie.id} movie={movie} />
-                            ))}
-                        </div>
-
-                        {/* Thanh phân trang Pagination nếu có nhiều hơn 1 trang */}
-                        {totalPages > 1 && (
-                            <div className={cx('pagination')}>
-                                <button
-                                    type="button"
-                                    className={cx('page-arrow', { disabled: currentPage === 1 })}
-                                    onClick={() => handlePageChange(currentPage - 1)}
-                                    disabled={currentPage === 1}
-                                    aria-label="Trang trước"
-                                >
-                                    <i className="fa-solid fa-chevron-left"></i>
-                                </button>
-
-                                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNum) => (
-                                    <button
-                                        key={pageNum}
-                                        type="button"
-                                        className={cx('page-num', { active: pageNum === currentPage })}
-                                        onClick={() => handlePageChange(pageNum)}
-                                    >
-                                        {pageNum}
-                                    </button>
-                                ))}
-
-                                <button
-                                    type="button"
-                                    className={cx('page-arrow', { disabled: currentPage === totalPages })}
-                                    onClick={() => handlePageChange(currentPage + 1)}
-                                    disabled={currentPage === totalPages}
-                                    aria-label="Trang tiếp"
-                                >
-                                    <i className="fa-solid fa-chevron-right"></i>
-                                </button>
-                            </div>
-                        )}
-                    </>
-                ) : (
-                    /* Trạng thái Empty State khi không tìm thấy kết quả */
-                    <div className={cx('empty-state')}>
-                        <div className={cx('empty-icon-wrap')}>
-                            <i className="fa-solid fa-film"></i>
-                        </div>
-                        <h3 className={cx('empty-title')}>Không tìm thấy bộ phim phù hợp</h3>
-                        <p className={cx('empty-desc')}>
-                            Vui lòng thử lại với từ khóa khác hoặc xóa bớt tiêu chí lọc thể loại, quốc gia, năm.
-                        </p>
-                        {hasActiveFilters &&(
-                            <button
-                            type="button"
-                            className={cx(`empty-reset-btn`)}
-                            onClick={handleResetFilters}
-                            >
-                            Đặt lại bộ lọc
-                            </button>
-                        )}
-                    </div>
-                )}
+                {/* Vùng hiển thị danh sách phim hoặc trạng thái tương ứng */}
+                {movieContent}
             </div>
         </section>
     );
