@@ -13,7 +13,7 @@
         rgba(0, 0, 0, 0.4) 18%,
         rgba(0, 0, 0, 0.15) 45%,
         rgba(0, 0, 0, 0.6) 100%
-    ), url('../../assets/movieShow.jpeg');
+    ), url('https://res.cloudinary.com/uhqycyi3/image/upload/v1794502719/movieShow.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;

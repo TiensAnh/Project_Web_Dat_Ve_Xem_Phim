@@ -13,8 +13,10 @@ import UpComingMovie from '../../components/movie/UpComingMovies/UpComingMovie.j
 import BlogSection from '../../components/blog/BlogSection/BlogSection.jsx';
 import CinemaBrandGrid from '../../components/cinema/CinemaBrandGrid/CinemaBrandGrid.jsx';
 import { BRAND_ITEMS, CINEMAS_DATA } from '../../data/cinemasData.js';
-import heroImage from '../../assets/images/subpage-hero-cinema.png';
 
+
+
+const heroImage = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500852/subpage-hero-cinema';
 const cx = classNames.bind(style);
 
 function removeVietnameseTones(str) {

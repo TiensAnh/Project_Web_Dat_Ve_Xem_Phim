@@ -1,28 +1,28 @@
 // Desktop Banners (Tỉ lệ 3:1 - 2048x682)
-import dDigital from '../assets/banners/desktop/digital-2048x682_1790934068494.jpg';
-import dGalaxy from '../assets/banners/desktop/2048x682-galaxy_1787801173380.jpg';
-import dBannerWeb from '../assets/banners/desktop/banner-web-2048x682_1788769694243.jpg';
-import dBts from '../assets/banners/desktop/bts-world-tour-arirang-in-sao-paulo-live-viewing-4_1790859137898.jpg';
-import dGoAnLac from '../assets/banners/desktop/galaxy-cineo-go-an-lac--1_1790313334520.jpg';
-import dQuangTrung from '../assets/banners/desktop/galaxy-cineo-quang-trung-mua-1-tang-1-5_1790831267766.jpg';
-import dHenry from '../assets/banners/desktop/henrys-first-date-2_1790237508119.jpg';
-import dMomo from '../assets/banners/desktop/momo-2_1778484333050.jpg';
-import dRapDacBiet from '../assets/banners/desktop/rap-dac-biet-2_1777019478895.jpg';
-import dShopee from '../assets/banners/desktop/shopee-x-galaxy-cinema-1_1788065621383.jpg';
-import dTraiBuonNguoi from '../assets/banners/desktop/trai-buon-nguoi-2048_1790067347205.jpg';
+const dDigital = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500920/digital-2048x682_1790934068494.jpg';
+const dGalaxy = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500920/2048x682-galaxy_1787801173380.jpg';
+const dBannerWeb = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500920/banner-web-2048x682_1788769694243.jpg';
+const dBts = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500920/bts-world-tour-arirang-in-sao-paulo-live-viewing-4_1790859137898.jpg';
+const dGoAnLac = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500920/galaxy-cineo-go-an-lac--1_1790313334520.jpg';
+const dQuangTrung = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500920/galaxy-cineo-quang-trung-mua-1-tang-1-5_1790831267766.jpg';
+const dHenry = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500921/henrys-first-date-2_1790237508119.jpg';
+const dMomo = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500921/momo-2_1778484333050.jpg';
+const dRapDacBiet = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500921/rap-dac-biet-2_1777019478895.jpg';
+const dShopee = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500921/shopee-x-galaxy-cinema-1_1788065621383.jpg';
+const dTraiBuonNguoi = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500921/trai-buon-nguoi-2048_1790067347205.jpg';
 
 // Mobile Banners (Tỉ lệ 3:2 / 1.5:1)
-import mDigital from '../assets/banners/mobile/1350_1790934074810.jpg';
-import mGalaxy from '../assets/banners/mobile/galaxy-1800x1200_1787801179860.jpg';
-import mBannerApp from '../assets/banners/mobile/banner-app-1800x1200_1788769702417.jpg';
-import mBts from '../assets/banners/mobile/bts-world-tour-arirang-in-sao-paulo-live-viewing-3_1790859142975.jpg';
-import mGoAnLac from '../assets/banners/mobile/galaxy-cineo-go-an-lac--5_1790313346474.jpg';
-import mQuangTrung from '../assets/banners/mobile/galaxy-cineo-quang-trung-mua-1-tang-1-4_1790831274345.jpg';
-import mHenry from '../assets/banners/mobile/henrys-first-date-1_1790237521853.jpg';
-import mMomo from '../assets/banners/mobile/momo-3_1778484342028.jpg';
-import mRapDacBiet from '../assets/banners/mobile/rap-dac-biet_1777019484903.jpg';
-import mShopee from '../assets/banners/mobile/shopee-x-galaxy-cinema-6_1788065628219.jpg';
-import mTraiBuonNguoi from '../assets/banners/mobile/trai-buon-nguoi-750_1790067348251.jpg';
+const mDigital = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500901/1350_1790934074810.jpg';
+const mGalaxy = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500903/galaxy-1800x1200_1787801179860.jpg';
+const mBannerApp = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500902/banner-app-1800x1200_1788769702417.jpg';
+const mBts = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500902/bts-world-tour-arirang-in-sao-paulo-live-viewing-3_1790859142975.jpg';
+const mGoAnLac = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500903/galaxy-cineo-go-an-lac--5_1790313346474.jpg';
+const mQuangTrung = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500903/galaxy-cineo-quang-trung-mua-1-tang-1-4_1790831274345.jpg';
+const mHenry = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500902/henrys-first-date-1_1790237521853.jpg';
+const mMomo = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500903/momo-3_1778484342028.jpg';
+const mRapDacBiet = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500905/rap-dac-biet_1777019484903.jpg';
+const mShopee = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500904/shopee-x-galaxy-cinema-6_1788065628219.jpg';
+const mTraiBuonNguoi = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500904/trai-buon-nguoi-750_1790067348251.jpg';
 
 /**
  * Danh sách Banner cho Desktop Web (màn hình rộng)

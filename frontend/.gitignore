@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Bỏ qua toàn bộ ảnh trong assets, chỉ giữ lại Logo
+src/assets/**/*.jpg
+src/assets/**/*.jpeg
+src/assets/**/*.png
+src/assets/**/*.webp
+!src/assets/Logo/**

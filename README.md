@@ -61,6 +61,7 @@ Các trang hiện sử dụng dữ liệu mẫu. Form đăng nhập, nút **Mua 
 - React Router
 - CSS Modules
 - Recharts và Font Awesome
+- Cloudinary lưu trữ banner và ảnh nền. Frontend tải ảnh qua URL HTTPS.
 
 ## Chạy trên máy
 

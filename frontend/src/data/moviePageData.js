@@ -1,5 +1,5 @@
-import heroBannerImage from '../assets/images/subpage-hero-cinema.png';
-
+// Dùng ảnh Cloudinary cho SubHero trang Phim.
+const heroBannerImage = 'https://res.cloudinary.com/uhqycyi3/image/upload/v1794500852/subpage-hero-cinema';
 /**
  * Mock data cho trang MoviePage (Phim chiếu rạp)
  * Cấu trúc phân cấp chuẩn, sẵn sàng để sau này ánh xạ sang database schema hoặc CMS API.
