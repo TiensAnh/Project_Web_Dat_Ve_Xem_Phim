@@ -4,8 +4,10 @@ import org.springframework.http.HttpStatus;
 
 // Định nghĩa mã lỗi nghiệp vụ và phản hồi HTTP tương ứng.
 public enum ErrorCode {
-    MOVIE_NOT_FOUND(HttpStatus.NOT_FOUND, "Không tìm thấy phim.");
-
+    MOVIE_NOT_FOUND(HttpStatus.NOT_FOUND, "Không tìm thấy phim."),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "Token không hợp lệ hoặc đã hết hạn"),
+    INVALID_REGISTER_DATA(HttpStatus.BAD_REQUEST, "Thông tin đăng ký không hợp lệ"),
+    EMAIL_ALREADY_EXIST(HttpStatus.CONFLICT, "Email này đã tồn tại");
     private final HttpStatus status;
     private final String message;
 

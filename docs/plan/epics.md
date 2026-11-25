@@ -1,82 +1,50 @@
 # Kế hoạch TianMovie
 
-Cập nhật ngày 17/11/2026
+Cập nhật ngày 22/11/2026
 
-## Phạm vi bản đầu
+## Cách đi theo lộ trình
 
-Khách xem phim, tra lịch chiếu, chọn ghế và nhận xác nhận đặt vé qua thanh toán giả lập. Admin cấu hình dữ liệu và tra cứu đơn. Các epic mở rộng sẽ được bổ sung khi chủ dự án yêu cầu.
+- Hoàn thành **bản cơ bản: Epic 01 → 09**, sau đó mới chọn task trong **Epic 10 — Nâng cấp**.
+- Mỗi lần học một khái niệm, làm một bước nhỏ và kiểm tra được kết quả rồi mới đi tiếp. Riêng Epic 02 có thứ tự task con để tránh học JWT, filter và xử lý lỗi cùng lúc.
+- Người dùng tự viết backend; trợ lý giải thích và hướng dẫn theo task đang làm.
+- Tận dụng UI, Spring JDBC, Liquibase và code đã có. Không thêm framework hoặc tầng trừu tượng chỉ để chuẩn bị cho tương lai.
+- Cấu trúc cho logic mới: Controller nhận/trả dữ liệu → Service xử lý nghiệp vụ → Repository truy vấn DB. Frontend gọi API qua service riêng. Không refactor phần đã chạy nếu không cần.
+- Schema tham chiếu: [tianmovie.md](../../../docs/tianmovie.md). Chỉ tạo các bảng/cột cần cho task hiện tại; migration mới dùng số tiếp theo đang trống, không giữ chỗ số migration cho nâng cấp.
 
-## Định hướng kiểm thử Backend
+## Phạm vi bản cơ bản
 
-Phân loại mức độ kiểm thử khi bóc tách task cho từng Epic:
+- Khách xem phim, lịch chiếu, chọn ghế, thanh toán **giả lập** và xem vé của mình.
+- Một hệ thống rạp mẫu, admin `super_admin` quản lý dữ liệu; người dùng đăng ký mang quyền `customer`.
+- Đăng nhập bằng một Access Token, hết hạn thì đăng nhập lại. Chi tiết và giới hạn nằm ở [Epic 02](epic-02-tasks.md).
+- Bắt đầu với phòng hình chữ nhật, ghế STANDARD và một giá cơ bản cho mỗi suất chiếu.
+- Vẫn giữ BCrypt, kiểm tra quyền ở backend, quyền sở hữu đơn, kiểm tra dữ liệu, transaction và ràng buộc chống đặt trùng ghế.
+- Refresh Token, phân quyền nhiều cấp, chuẩn hóa lỗi filter và các cơ chế vận hành nâng cao nằm ở [Epic 10](epic-10-upgrade-tasks.md).
 
-- **Bắt buộc viết test tự động (Nghiệp vụ phức tạp / Concurrency / Tiền bạc):**
-  - **Epic 05:** Test chặn trùng khung giờ chiếu trong cùng một phòng.
-  - **Epic 06:** Test tranh chấp giữ ghế đồng thời (concurrency) và cơ chế tự động nhả ghế khi hết hạn.
-  - **Epic 07:** Test tính toàn vẹn và idempotency (không tạo trùng vé khi xử lý callback thanh toán nhiều lần).
-- **Nên có test (Bảo mật & Logic sinh dữ liệu):**
-  - **Epic 02:** Test xác thực và phân quyền (chặn tài khoản thường gọi API admin).
-  - **Epic 04:** Test logic sinh ma trận ghế theo cấu hình phòng chiếu.
-  - **Epic 08:** Test quyền xem vé cá nhân (không xem được vé của tài khoản khác).
-- **Linh hoạt (CRUD cơ bản / MVP):**
-  - **Epic 01, Epic 03:** Kiểm tra qua UI, Postman hoặc viết test API cơ bản để tối ưu tiến độ.
-- **Kiểm thử toàn diện (E2E):**
-  - **Epic 09:** Chạy kiểm thử tích hợp toàn bộ luồng từ đầu đến cuối.
+## Thứ tự thực hiện
 
-## Danh sách epic theo thứ tự làm
+| Epic | Mục tiêu của bản cơ bản | Phụ thuộc | Checklist |
+|---|---|---|---|
+| 01 — Danh mục phim | Danh sách, lọc thể loại, chi tiết phim; đã hoàn thành | API phim và thể loại hiện có | [Epic 01](epic-01-tasks.md) |
+| 02 — Tài khoản | Đăng ký, đăng nhập, xem tài khoản, đăng xuất và chặn API admin | Bảng users đã có | [Epic 02](epic-02-tasks.md) |
+| 03 — Quản trị phim | Admin thêm, sửa phim và gán thể loại; trang khách đọc dữ liệu thật | 01, 02 | [Epic 03](epic-03-tasks.md) |
+| 04 — Rạp và ghế | Cấu hình rạp, phòng, ghế STANDARD; khách xem rạp | 02 | [Epic 04](epic-04-tasks.md) |
+| 05 — Suất chiếu | Tạo suất, một giá vé, chặn trùng phòng; khách chọn suất | 03, 04 | [Epic 05](epic-05-tasks.md) |
+| 06 — Chọn và giữ ghế | Tạo đơn chờ thanh toán, chống trùng ghế, giải phóng chỗ hết hạn | 02, 05 | [Epic 06](epic-06-tasks.md) |
+| 07 — Thanh toán giả lập | Xác nhận thành công/thất bại; không xác nhận lặp đơn | 06 | [Epic 07](epic-07-tasks.md) |
+| 08 — Tra cứu vé | Khách xem vé của mình; admin tra cứu mã đặt vé | 02, 07 | [Epic 08](epic-08-tasks.md) |
+| 09 — Hoàn thành bản cơ bản | Kiểm tra toàn luồng, dữ liệu demo và hướng dẫn chạy | 01–08 | [Epic 09](epic-09-tasks.md) |
+| 10 — Nâng cấp | Làm từng nhóm nâng cấp sau khi nghiệm thu bản cơ bản | 09 và điều kiện của từng task | [Epic 10](epic-10-upgrade-tasks.md) |
 
-### Epic 01 — Danh mục phim
+## Kiểm tra theo mức độ
 
-- **Mục tiêu** — Khách tìm và xem thông tin phim từ dữ liệu backend.
-- **Xong khi** — Khách xem danh sách, lọc theo thể loại và mở chi tiết phim. Giao diện xử lý trạng thái đang tải, rỗng và lỗi. Xác minh hai API đã nối ở trang Tất cả phim trong commit `c4fea31`.
-- **Phụ thuộc** — API phim và thể loại đã có.
-- **Task** — [Mẫu file task của Epic 01](epic-01-tasks.md).
+- Task CRUD, UI: kiểm tra bằng Postman và giao diện, gồm thành công, dữ liệu sai, rỗng và lỗi; chưa cần bộ test tự động rộng.
+- Epic 02 và 08: kiểm tra `401`, `403` và không đọc được dữ liệu của tài khoản khác; nên có test tự động cho các ca này.
+- Epic 04: kiểm tra số lượng và tọa độ ghế; nên có test cho logic sinh ghế.
+- Epic 05–07: giữ test tự động cho trùng suất, tranh chấp ghế, hết hạn và xác nhận thanh toán lặp. Đây là điều kiện để luồng đặt vé hoạt động đúng.
+- Epic 09: chạy checklist toàn luồng thủ công. Bộ E2E tự động rộng và kiểm thử tải để ở Epic 10.
 
-### Epic 02 — Tài khoản và phân quyền
+## Quy ước task
 
-- **Mục tiêu** — Khách có tài khoản và các thao tác quản trị được kiểm soát theo quyền.
-- **Xong khi** — Khách đăng ký, đăng nhập và đăng xuất được. Backend từ chối truy cập API quản trị khi tài khoản thiếu quyền.
-- **Phụ thuộc** — Không có.
-- **Task** — [Danh sách task của Epic 02](epic-02-tasks.md).
-
-### Epic 03 — Quản trị phim và thể loại
-
-- **Mục tiêu** — Admin quản lý danh mục phim hiển thị cho khách.
-- **Xong khi** — Admin tạo, sửa, cập nhật trạng thái phim và gán thể loại. Dữ liệu lưu vào DB và phản ánh đúng trên trang khách.
-- **Phụ thuộc** — Epic 01 và 02.
-
-### Epic 04 — Cụm rạp, phòng và sơ đồ ghế
-
-- **Mục tiêu** — Admin cấu hình địa điểm chiếu và sơ đồ ghế. Khách tra cứu thông tin rạp.
-- **Xong khi** — Admin cấu hình được cụm rạp, rạp, phòng và ghế. Khách xem được danh sách và chi tiết rạp từ dữ liệu backend.
-- **Phụ thuộc** — Epic 02.
-
-### Epic 05 — Suất chiếu và giá vé
-
-- **Mục tiêu** — Admin lập lịch và cấu hình giá. Khách tìm được suất phù hợp.
-- **Xong khi** — Admin tạo suất và thiết lập giá. Hệ thống từ chối suất trùng giờ trong cùng phòng. Khách lọc lịch theo phim, rạp và ngày rồi chọn được suất mở bán.
-- **Phụ thuộc** — Epic 03 và 04.
-
-### Epic 06 — Chọn ghế và giữ chỗ
-
-- **Mục tiêu** — Khách chọn ghế và tạo đơn chờ thanh toán.
-- **Xong khi** — Khách thấy sơ đồ ghế và tổng tiền. Hai khách tranh cùng một ghế thì chỉ một người giữ được. Ghế hết hạn giữ chỗ có thể chọn lại.
-- **Phụ thuộc** — Epic 05.
-
-### Epic 07 — Thanh toán giả lập và xác nhận vé
-
-- **Mục tiêu** — Khách hoàn tất luồng đặt vé với giao dịch giả lập.
-- **Xong khi** — Giao dịch thành công trả mã đặt vé. Giao dịch thất bại hoặc hết hạn được xử lý đúng. Xử lý lặp cùng giao dịch chỉ xác nhận vé một lần.
-- **Phụ thuộc** — Epic 06.
-
-### Epic 08 — Lịch sử vé và tra cứu đơn
-
-- **Mục tiêu** — Khách xem vé của mình và người vận hành tra cứu được đơn.
-- **Xong khi** — Khách xem được vé thuộc tài khoản của mình. Người có quyền tra cứu đơn theo mã và xem ghế, trạng thái đơn và thanh toán.
-- **Phụ thuộc** — Epic 02 và 07.
-
-### Epic 09 — Kiểm thử và bàn giao bản đầu
-
-- **Mục tiêu** — Chạy và kiểm tra được luồng đặt vé từ đầu đến cuối.
-- **Xong khi** — Kiểm tra được luồng cấu hình phim, rạp, suất chiếu đến đặt vé và tra cứu đơn, gồm các ca trùng ghế, hết hạn, lỗi thanh toán và sai quyền. Có dữ liệu demo và hướng dẫn chạy.
-- **Phụ thuộc** — Epic 01–08.
+- Chỉ đánh dấu `[x]` khi đã kiểm tra điều kiện hoàn thành, không chỉ vì đã tạo file.
+- Giữ mã task cũ khi chia nhỏ hoặc chuyển vị trí. **T2.7–T2.9** được chuyển sang Epic 10 và giữ mã để tra lại lịch sử.
+- Các file task mô tả việc cần làm; trạng thái tổng hợp theo dõi tại [progress.md](../../../docs/progress.md).
