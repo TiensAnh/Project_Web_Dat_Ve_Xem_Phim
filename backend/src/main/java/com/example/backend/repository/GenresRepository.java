@@ -16,6 +16,7 @@ public class GenresRepository {
     public GenresRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
+
     // Hàm lấy tất cả trường của bảng genres
     public List<GenresResponse> findAllGenres ()  {
         String sql = "Select * FROM genres";
@@ -24,6 +25,7 @@ public class GenresRepository {
         return genres;
 
     }
+
     // Hàm tạo 1 đối tượng genres chứa 2  trường
     public GenresResponse rowMapGenres (ResultSet resultSet, int rowNumber)throws SQLException{
         long idGenres = resultSet.getLong("id");

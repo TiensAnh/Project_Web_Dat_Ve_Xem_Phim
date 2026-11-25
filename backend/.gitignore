@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Bỏ qua cấu hình môi trường riêng.
+.env
