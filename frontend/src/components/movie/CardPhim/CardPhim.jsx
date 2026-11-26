@@ -17,27 +17,21 @@ function getAgeBadgeInfo(ageRating) {
 function CardPhim({ movie }) {
     if (!movie) return null;
 
+    // Lấy các trường cần thiết để hiển thị thẻ phim.
     const {
         id,
-        slug,
         title,
-        englishTitle,
-        durationMinutes,
         ageRating,
         posterUrl,
-        backdropUrl,
         trailerUrl,
-        synopsis,
-        storyPlot,
-        highlightsUrlMovie,
-        releaseDateUrlMovie,
         genres,
     } = movie;
 
     const movieTitle = title || 'Chưa có tên';
     const moviePoster = posterUrl || '';
     const movieLink =  (id ? `/phim/${id}` : '#');
-    const displayGenres = Array.isArray(genres) ? genres.join(', ') : (genre || '');
+    // Chuẩn hóa chuỗi thể loại phim từ mảng hoặc chuỗi.
+    const displayGenres = Array.isArray(genres) ? genres.join(', ') : (genres || '');
     const displayRating = null;
     const badgeInfo = getAgeBadgeInfo(ageRating);
 

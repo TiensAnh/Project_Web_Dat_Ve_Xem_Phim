@@ -1,6 +1,19 @@
 import { useRef, useState } from "react";
 
 function useSlider(slides) {
+    // Khai báo toàn bộ hook ở đầu hàm để giữ cố định thứ tự gọi trong React.
+    const [currentIndex, setCurrentIndex] = useState(1);
+    const [isTransition, setIsTransition] = useState(true);
+    const isMovingRef = useRef(false);
+
+    const touchStartX = useRef(0);
+    const touchStartY = useRef(0);
+    const touchEndX = useRef(0);
+    const touchEndY = useRef(0);
+
+    const isDragging = useRef(false);
+    const mouseStartX = useRef(0);
+
     if (!slides || slides.length === 0) {
         return {
             goToPrevious: () => {},
@@ -27,9 +40,6 @@ function useSlider(slides) {
         ...slides,
         slides[0]
     ];
-    const [currentIndex, setCurrentIndex] = useState(1);
-    const [isTransition, setIsTransition] = useState(true);
-    const isMovingRef = useRef(false);
 
     const goToPrevious = () => {
         if (isMovingRef.current) return;
@@ -66,13 +76,6 @@ function useSlider(slides) {
 
     // Touch & Mouse Gesture Support
     const minSwipeDistance = 45; // Khoảng cách vuốt tối thiểu (px)
-    const touchStartX = useRef(0);
-    const touchStartY = useRef(0);
-    const touchEndX = useRef(0);
-    const touchEndY = useRef(0);
-
-    const isDragging = useRef(false);
-    const mouseStartX = useRef(0);
 
     // Cử chỉ Touch trên màn hình cảm ứng (Mobile / Tablet)
     const handleTouchStart = (e) => {

@@ -1,0 +1,56 @@
+# Workflow CI tự động kiểm tra build cho Frontend và Backend.
+name: TianMovie CI
+
+# Kích hoạt CI khi push nhánh chính/nhánh tính năng, mở PR vào main hoặc chạy tay.
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+      - "chore/**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  # Kiểm tra lint và build giao diện React bằng Node.js 24.
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      # Tải mã nguồn về máy ảo CI.
+      - uses: actions/checkout@v4
+      # Cài đặt Node.js 24 và bật cache phụ thuộc npm.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      # Cài đúng các gói theo package-lock.json.
+      - run: npm ci
+      # Kiểm tra lỗi cú pháp và quy tắc ESLint.
+      - run: npm run lint
+      # Build thử bản production của Vite.
+      - run: npm run build
+
+  # Kiểm tra biên dịch và đóng gói Spring Boot bằng Java 21.
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      # Tải mã nguồn về máy ảo CI.
+      - uses: actions/checkout@v4
+      # Cài đặt Java 21 (Temurin) và bật cache thư viện Maven.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+          cache-dependency-path: backend/pom.xml
+      # Cấp quyền thực thi cho mvnw trên Linux rồi biên dịch bỏ qua test DB.
+      - run: chmod +x mvnw && ./mvnw -B package -DskipTests

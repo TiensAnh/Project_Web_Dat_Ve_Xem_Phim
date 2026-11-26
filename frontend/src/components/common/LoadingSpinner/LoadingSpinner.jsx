@@ -1,5 +1,3 @@
-import React from 'react';
-
 function LoadingSpinner({ text = 'Đang tải dữ liệu...' }) {
     return (
         <div style={{ textAlign: 'center', padding: '60px 0', color: '#2563eb' }}>

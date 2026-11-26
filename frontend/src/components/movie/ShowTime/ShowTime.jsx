@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import style from './ShowTime.module.css';
@@ -106,6 +106,24 @@ const brand_items_time = [
 const movie_list_items =[
     {}
 ]
+// Chọn thành phố có rạp phù hợp khi hãng rạp thay đổi.
+function resolveCityForBrand(brandId, currentCity) {
+    if (!brandId) {
+        return currentCity;
+    }
+    const brandCinemas = CINEMAS_DATA.filter((cinema) => cinema.brandId === brandId);
+    if (brandCinemas.length === 0) {
+        return currentCity;
+    }
+    const hasInCurrentCity = brandCinemas.some(
+        (cinema) => cinema.city.toLowerCase() === currentCity.toLowerCase()
+    );
+    if (hasInCurrentCity) {
+        return currentCity;
+    }
+    return brandCinemas[0].city;
+}
+
 function ShowTime({ 
     movie, 
     movieTitle, 
@@ -129,40 +147,51 @@ function ShowTime({
         ...(titleColor ? { '--showtime-title-color': titleColor } : {}),
     };
 
-    // State lưu brand rạp đang được chọn (mặc định theo brand prop hoặc 'all' - Tất cả)
-    const [selectedBrandId, setSelectedBrandId] = useState(brand?.id || 'all');
+    const propBrandId = brand?.id || null;
+
+    // Lưu brand rạp gắn theo prop brand hiện tại để tự đồng bộ khi chuyển trang hãng.
+    const [brandSelection, setBrandSelection] = useState({
+        propBrandId,
+        value: propBrandId || 'all',
+    });
+    const selectedBrandId = brandSelection.propBrandId === propBrandId
+        ? brandSelection.value
+        : (propBrandId || 'all');
+
+    // Cập nhật hãng rạp khi người dùng chọn thủ công.
+    function handleSelectBrand(nextBrandId) {
+        setBrandSelection({
+            propBrandId,
+            value: nextBrandId,
+        });
+    }
+
     // State lưu rạp chiếu đang được chọn trong CinemaList (khởi tạo từ mockdata)
     const [selectedCinema, setSelectedCinema] = useState(() => CINEMAS_DATA[0]);
     // State lưu ngày chiếu đang được chọn trong DatePicker
     const [selectedDate, setSelectedDate] = useState(null);
     // State quản lý đóng/mở popup chọn rạp trên mobile
     const [isCinemaModalOpen, setIsCinemaModalOpen] = useState(false);
-    // State lưu thành phố đang chọn (mặc định 'Hà Nội')
-    const [selectedCity, setSelectedCity] = useState('Hà Nội');
+
+    // Lưu thành phố gắn theo prop brand hiện tại và tự đổi nếu hãng mới không có rạp ở thành phố cũ.
+    const [citySelection, setCitySelection] = useState({
+        propBrandId,
+        value: resolveCityForBrand(propBrandId, 'Hà Nội'),
+    });
+    const selectedCity = citySelection.propBrandId === propBrandId
+        ? citySelection.value
+        : resolveCityForBrand(propBrandId, citySelection.value);
+
+    // Cập nhật thành phố khi người dùng chọn trong modal địa điểm.
+    function handleSelectCity(nextCity) {
+        setCitySelection({
+            propBrandId,
+            value: nextCity,
+        });
+    }
+
     // State quản lý đóng/mở popup chọn địa điểm
     const [isCityModalOpen, setIsCityModalOpen] = useState(false);
-
-    // Đồng bộ selectedBrandId khi brand thay đổi
-    useEffect(() => {
-        if (brand?.id) {
-            setSelectedBrandId(brand.id);
-        }
-    }, [brand?.id]);
-
-    // Tự động chuyển thành phố nếu brand hiện tại không có rạp ở thành phố đang chọn
-    useEffect(() => {
-        if (brand?.id) {
-            const brandCinemas = CINEMAS_DATA.filter((c) => c.brandId === brand.id);
-            if (brandCinemas.length > 0) {
-                const hasInCurrentCity = brandCinemas.some(
-                    (c) => c.city.toLowerCase() === selectedCity.toLowerCase()
-                );
-                if (!hasInCurrentCity) {
-                    setSelectedCity(brandCinemas[0].city);
-                }
-            }
-        }
-    }, [brand?.id]);
 
     // Chế độ dành cho trang chi tiết từng phim (MovieDetail)
     if (movie) {
@@ -207,7 +236,7 @@ function ShowTime({
                             <CinemaBrands 
                                 brand_items={brand_items} 
                                 selectedBrandId={selectedBrandId} 
-                                onSelectBrand={setSelectedBrandId} 
+                                onSelectBrand={handleSelectBrand} 
                                 isDark={isDark} 
                             />
                         </div>
@@ -228,7 +257,7 @@ function ShowTime({
                         isOpen={isCityModalOpen}
                         onClose={() => setIsCityModalOpen(false)}
                         selectedCity={selectedCity}
-                        onSelectCity={setSelectedCity}
+                        onSelectCity={handleSelectCity}
                         isDark={isDark}
                     />
                 </div>
@@ -273,7 +302,7 @@ function ShowTime({
                                 <CinemaBrands 
                                     brand_items={brand_items}
                                     selectedBrandId={selectedBrandId}
-                                    onSelectBrand={setSelectedBrandId}
+                                    onSelectBrand={handleSelectBrand}
                                     isDark={isDark}
                                 />
                             </div>
@@ -324,7 +353,7 @@ function ShowTime({
                     onClose={() => setIsCinemaModalOpen(false)}
                     brand_items={brand_items}
                     selectedBrandId={selectedBrandId}
-                    onSelectBrand={setSelectedBrandId}
+                    onSelectBrand={handleSelectBrand}
                     brand_items_time={brand_items_time}
                     cinemas={CINEMAS_DATA}
                     selectedCity={selectedCity}
@@ -340,7 +369,7 @@ function ShowTime({
                     isOpen={isCityModalOpen}
                     onClose={() => setIsCityModalOpen(false)}
                     selectedCity={selectedCity}
-                    onSelectCity={setSelectedCity}
+                    onSelectCity={handleSelectCity}
                     isDark={isDark}
                 />
                 {showMore && (

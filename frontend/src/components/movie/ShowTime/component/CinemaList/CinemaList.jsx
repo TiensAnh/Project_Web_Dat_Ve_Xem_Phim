@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import style from './CinemaList.module.css';
 
@@ -33,51 +33,72 @@ function CinemaList({
     isDark = false,
     selectedCity,
 }) {
-    const rawList = cinemas || (brand_items_time && brand_items_time[0]?.name ? brand_items_time : DEFAULT_MOCK_CINEMAS);
+    // Chọn nguồn danh sách rạp ưu tiên từ props trước rồi mới tới dữ liệu mẫu.
+    const rawList = useMemo(() => {
+        if (cinemas) {
+            return cinemas;
+        }
+        if (brand_items_time && brand_items_time[0]?.name) {
+            return brand_items_time;
+        }
+        return DEFAULT_MOCK_CINEMAS;
+    }, [cinemas, brand_items_time]);
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedId, setSelectedId] = useState(selectedCinemaId || rawList[0]?.id || 1);
-    
-    // Mặc định hiển thị tối đa 6 rạp ban đầu
-    const [visibleCount, setVisibleCount] = useState(6);
-
-    // Cập nhật selectedId nếu selectedCinemaId từ bên ngoài thay đổi
-    useEffect(() => {
-        if (selectedCinemaId) {
-            setSelectedId(selectedCinemaId);
-        }
-    }, [selectedCinemaId]);
+    const filterKey = `${selectedBrandId}-${selectedCity || ''}`;
 
     // 1. Lọc theo Brand và Thành phố (nếu có)
-    const brandFilteredCinemas = rawList.filter(cinema => {
-        const matchBrand = selectedBrandId === 'all' || cinema.brandId === selectedBrandId;
-        const matchCity = !selectedCity || !cinema.city || cinema.city.toLowerCase() === selectedCity.toLowerCase();
-        return matchBrand && matchCity;
-    });
+    const brandFilteredCinemas = useMemo(() => {
+        return rawList.filter((cinema) => {
+            const matchBrand = selectedBrandId === 'all' || cinema.brandId === selectedBrandId;
+            const matchCity = !selectedCity || !cinema.city || cinema.city.toLowerCase() === selectedCity.toLowerCase();
+            return matchBrand && matchCity;
+        });
+    }, [rawList, selectedBrandId, selectedCity]);
 
     // 2. Lọc tiếp theo từ khóa tìm kiếm
-    const filteredCinemas = brandFilteredCinemas.filter(cinema =>
+    const filteredCinemas = brandFilteredCinemas.filter((cinema) =>
         cinema.name?.toLowerCase().includes(searchTerm.trim().toLowerCase())
     );
 
-    // Reset lại số lượng hiển thị và chọn rạp đầu tiên khi đổi Brand hoặc Thành phố
+    // Gắn rạp đang chọn theo bộ lọc và prop ngoài để tự đồng bộ mà không cần useEffect.
+    const selectionKey = `${filterKey}-${selectedCinemaId ?? ''}`;
+    const [selectionState, setSelectionState] = useState({
+        key: selectionKey,
+        id: selectedCinemaId || rawList[0]?.id || 1,
+    });
+    const firstFilteredCinema = brandFilteredCinemas[0] || null;
+    let fallbackSelectedId = selectionState.id;
+    if (selectedCinemaId) {
+        fallbackSelectedId = selectedCinemaId;
+    } else if (autoSelectOnBrandChange && firstFilteredCinema) {
+        fallbackSelectedId = firstFilteredCinema.id;
+    }
+    const selectedId = selectionState.key === selectionKey ? selectionState.id : fallbackSelectedId;
+
+    // Gắn số lượng rạp hiển thị theo bộ lọc và từ khóa để tự reset về 6 khi thay đổi.
+    const paginationKey = `${filterKey}-${searchTerm}`;
+    const [paginationState, setPaginationState] = useState({
+        key: paginationKey,
+        count: 6,
+    });
+    const visibleCount = paginationState.key === paginationKey ? paginationState.count : 6;
+
+    // Báo rạp đầu tiên lên component cha khi đổi Brand hoặc Thành phố.
     useEffect(() => {
-        setVisibleCount(6);
-        if (brandFilteredCinemas.length > 0) {
-            if (autoSelectOnBrandChange) {
-                setSelectedId(brandFilteredCinemas[0].id);
-                if (onSelectCinema) {
-                    onSelectCinema(brandFilteredCinemas[0]);
-                }
-            }
+        if (autoSelectOnBrandChange && firstFilteredCinema && onSelectCinema) {
+            onSelectCinema(firstFilteredCinema);
         }
-    }, [selectedBrandId, selectedCity, autoSelectOnBrandChange]);
+    }, [autoSelectOnBrandChange, firstFilteredCinema, onSelectCinema]);
 
     // Cắt lấy 6 rạp đầu tiên (hoặc nhiều hơn khi ấn Xem thêm)
     const displayedCinemas = filteredCinemas.slice(0, visibleCount);
 
     const handleCinemaClick = (cinema) => {
-        setSelectedId(cinema.id);
+        setSelectionState({
+            key: selectionKey,
+            id: cinema.id,
+        });
         if (onSelectCinema) {
             onSelectCinema(cinema);
         }
@@ -88,7 +109,10 @@ function CinemaList({
 
     // Hàm tải thêm 6 rạp tiếp theo
     const handleLoadMore = () => {
-        setVisibleCount(prev => prev + 6);
+        setPaginationState({
+            key: paginationKey,
+            count: visibleCount + 6,
+        });
     };
 
     return (
@@ -102,7 +126,6 @@ function CinemaList({
                     value={searchTerm}
                     onChange={(e) => {
                         setSearchTerm(e.target.value);
-                        setVisibleCount(6);
                     }}
                 />
                 <i className={cx('fa-solid fa-magnifying-glass', 'search-icon')}></i>

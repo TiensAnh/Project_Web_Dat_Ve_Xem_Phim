@@ -1,5 +1,5 @@
 import { useId, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './Sidebar.module.css'
 

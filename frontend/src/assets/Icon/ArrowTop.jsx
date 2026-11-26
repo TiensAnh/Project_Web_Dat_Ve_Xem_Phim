@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * ArrowUpIcon Component
  * @param {string} variant - Kiểu icon: "chevron" (mặc định), "arrow", hoặc "filled"

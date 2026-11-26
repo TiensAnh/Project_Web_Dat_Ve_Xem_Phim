@@ -5,8 +5,17 @@ import style from './AuthModal.module.css';
 const cx = classNames.bind(style);
 
 function AuthModal({ isOpen, onClose, mode = 'login', setMode }) {
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const visibilitySessionKey = `${mode}-${isOpen}`;
+    // Gắn trạng thái ẩn/hiện mật khẩu theo chế độ và lần mở hiện tại để tự reset.
+    const [passwordVisibility, setPasswordVisibility] = useState({
+        sessionKey: visibilitySessionKey,
+        showPassword: false,
+        showConfirmPassword: false,
+    });
+    const isSameVisibilitySession = passwordVisibility.sessionKey === visibilitySessionKey;
+    const showPassword = isSameVisibilitySession ? passwordVisibility.showPassword : false;
+    const showConfirmPassword = isSameVisibilitySession ? passwordVisibility.showConfirmPassword : false;
+
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -16,11 +25,23 @@ function AuthModal({ isOpen, onClose, mode = 'login', setMode }) {
         remember: false,
     });
 
-    // Reset password visibility when switching modes or opening/closing
-    useEffect(() => {
-        setShowPassword(false);
-        setShowConfirmPassword(false);
-    }, [mode, isOpen]);
+    // Chuyển trạng thái hiện/ẩn cho ô mật khẩu chính.
+    function handleTogglePassword() {
+        setPasswordVisibility({
+            sessionKey: visibilitySessionKey,
+            showPassword: !showPassword,
+            showConfirmPassword,
+        });
+    }
+
+    // Chuyển trạng thái hiện/ẩn cho ô xác nhận mật khẩu.
+    function handleToggleConfirmPassword() {
+        setPasswordVisibility({
+            sessionKey: visibilitySessionKey,
+            showPassword,
+            showConfirmPassword: !showConfirmPassword,
+        });
+    }
 
     // Lock body scroll when modal is open and handle ESC key
     useEffect(() => {
@@ -169,7 +190,7 @@ function AuthModal({ isOpen, onClose, mode = 'login', setMode }) {
                                 <button
                                     type="button"
                                     className={cx('eye-btn')}
-                                    onClick={() => setShowPassword(!showPassword)}
+                                    onClick={handleTogglePassword}
                                     tabIndex={-1}
                                 >
                                     <i className={showPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'}></i>
@@ -197,7 +218,7 @@ function AuthModal({ isOpen, onClose, mode = 'login', setMode }) {
                                     <button
                                         type="button"
                                         className={cx('eye-btn')}
-                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        onClick={handleToggleConfirmPassword}
                                         tabIndex={-1}
                                     >
                                         <i
