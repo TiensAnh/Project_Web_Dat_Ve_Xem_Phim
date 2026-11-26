@@ -8,7 +8,6 @@ function MovieSlider ({movieSlides,color}){
     const {
         goToNextPage,
         currentPage,
-        setCurrentPage,
         goToPreviousPage,
         isFirstPage,
         isLastPage

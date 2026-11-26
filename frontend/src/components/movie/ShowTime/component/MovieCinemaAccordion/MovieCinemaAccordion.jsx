@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './MovieCinemaAccordion.module.css';
 import SeatSelectionModal from '../../../SeatSelectionModal/SeatSelectionModal.jsx';
@@ -191,40 +191,59 @@ function MovieCinemaAccordion({
     onSelectShowtime,
     isDark = true,
 }) {
-    // Mặc định đóng tất cả các rạp (chỉ mở khi người dùng chủ động chọn rạp)
-    const [expandedIds, setExpandedIds] = useState([]);
-    const [selectedSlotKey, setSelectedSlotKey] = useState(null);
-    const [isSeatModalOpen, setIsSeatModalOpen] = useState(false);
+    // Tạo khóa bộ lọc theo hãng rạp và ngày để tự reset trạng thái khi thay đổi.
+    const normalizedDateKey = typeof selectedDate === 'object' ? (selectedDate?.id ?? '') : (selectedDate ?? '');
+    const filterScopeKey = `${selectedBrandId}-${normalizedDateKey}`;
 
-    // Tự động đóng rạp đang mở và reset suất chiếu khi thay đổi Brand hoặc Ngày
-    useEffect(() => {
-        setExpandedIds([]);
-        setSelectedSlotKey(null);
-    }, [selectedBrandId, selectedDate]);
+    // Lưu rạp đang mở và suất chiếu đang chọn gắn theo bộ lọc hiện tại.
+    const [accordionState, setAccordionState] = useState({
+        scopeKey: filterScopeKey,
+        expandedIds: [],
+        selectedSlotKey: null,
+    });
+    const isSameFilterScope = accordionState.scopeKey === filterScopeKey;
+    const expandedIds = isSameFilterScope ? accordionState.expandedIds : [];
+    const selectedSlotKey = isSameFilterScope ? accordionState.selectedSlotKey : null;
+    const [isSeatModalOpen, setIsSeatModalOpen] = useState(false);
 
     // Lọc theo Brand được chọn từ CinemaBrands
     const filteredCinemas = selectedBrandId === 'all'
         ? DEFAULT_CINEMAS_DATA
         : DEFAULT_CINEMAS_DATA.filter((cinema) => cinema.brandId === selectedBrandId);
 
+    // Mở hoặc đóng danh sách suất chiếu của rạp đang chọn.
     const toggleCinema = (cinemaId) => {
-        setExpandedIds((prev) =>
-            prev.includes(cinemaId) ? [] : [cinemaId]
-        );
+        const nextExpandedIds = expandedIds.includes(cinemaId) ? [] : [cinemaId];
+        setAccordionState({
+            scopeKey: filterScopeKey,
+            expandedIds: nextExpandedIds,
+            selectedSlotKey,
+        });
     };
 
+    // Lưu suất chiếu đang chọn và mở popup chọn ghế.
     const handleSlotClick = (cinema, format, slot) => {
         const slotKey = `${cinema.id}-${format.formatName}-${slot.start}`;
-        setSelectedSlotKey(slotKey);
+        setAccordionState({
+            scopeKey: filterScopeKey,
+            expandedIds,
+            selectedSlotKey: slotKey,
+        });
         setIsSeatModalOpen(true);
         if (onSelectShowtime) {
             onSelectShowtime({ cinema, format, slot });
         }
     };
-    const handleCloseSeatModal = () =>{
-        setIsSeatModalOpen (false);
-        setSelectedSlotKey(null);
-    }
+
+    // Đóng popup chọn ghế và xóa trạng thái suất chiếu đang chọn.
+    const handleCloseSeatModal = () => {
+        setIsSeatModalOpen(false);
+        setAccordionState({
+            scopeKey: filterScopeKey,
+            expandedIds,
+            selectedSlotKey: null,
+        });
+    };
     return (
         <div className={cx('accordion-list', { 'dark-theme': isDark })}>
             <SeatSelectionModal isOpen={isSeatModalOpen} onClose={handleCloseSeatModal} />

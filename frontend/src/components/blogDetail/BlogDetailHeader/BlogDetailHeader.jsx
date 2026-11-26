@@ -9,7 +9,6 @@ function BlogDetailHeader({
     title,
     sapo,
     category,
-    categorySlug,
     publishDate,
     readTime,
 }) {

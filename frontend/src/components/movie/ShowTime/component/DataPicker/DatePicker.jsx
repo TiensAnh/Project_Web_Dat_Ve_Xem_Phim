@@ -43,14 +43,11 @@ function DatePicker({ onSelectDate, selectedDate, isDark = false, numDays = 14, 
 
     const [activeDateId, setActiveDateId] = useState(() => getSelectedId(selectedDate) || dates[0]?.id);
 
-    // Đồng bộ nếu activeDateId hiện tại không còn nằm trong danh sách dates mới
-    useEffect(() => {
-        if (dates.length > 0 && !dates.some((d) => d.id === activeDateId)) {
-            setActiveDateId(dates[0].id);
-        }
-    }, [dates, activeDateId]);
+    // Dùng ngày đầu tiên nếu ngày đang chọn trước đó không còn trong danh sách mới.
+    const hasActiveDate = dates.some((item) => item.id === activeDateId);
+    const effectiveActiveDateId = hasActiveDate ? activeDateId : dates[0]?.id;
 
-    const currentSelectedId = getSelectedId(selectedDate) || activeDateId;
+    const currentSelectedId = getSelectedId(selectedDate) || effectiveActiveDateId;
 
     const checkScroll = () => {
         if (listRef.current) {
